@@ -38,8 +38,21 @@ class ParentLoginRegister extends Component{
 	}
 
 	// Handles the login submit form when the button is clicked
-	handleLoginSubmit = (e) =>{
+	handleLoginSubmit = async (e) =>{
 		e.preventDefault();
+
+		// const loginObject = {
+			
+		// }
+
+		// const response = await fetch('http://localhost:9000/auth/', {
+		// 	method: 'POST',
+		// 	credentials: 'include',
+		// 	body: JSON.stringify(this)
+
+		// });
+
+
 		this.setState({
 			loginSuccessful: true
 		});
