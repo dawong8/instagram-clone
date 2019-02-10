@@ -89,22 +89,51 @@ class ParentLoginRegister extends Component{
 	}
 
 	// Handles the register submit form when then the button is clicked
-	handleRegisterSubmit = (e) =>{
+	handleRegisterSubmit = async (e) =>{
 		e.preventDefault();
 		const updatedRegister = {
 			...this.state.register //spreads current value of register into updatedRegister
 		}
+		
+		try{
+			const response = await fetch('http://localhost:9000/auth', {
+			method: 'POST',
+			credentials: 'include',
+			body: JSON.stringify(updatedRegister),
+			headers: {
+				'Content-Type': 'application/json'
+				}
+			});
 
+			// console.log("Register response: ",response);
 
+			if(!response.ok){
+				throw Error(response.statusText);
 
+			}
 
+			const parsedReponse = await response.json();
+			console.log("Parsed response: ", parsedReponse);
 
-		// Sets register to successful if the user successfully registers an account
-		updatedRegister.successful = true;
-		this.setState({
-			register: updatedRegister
-		});
+			if(parsedReponse.data === 'register successful')
+			// Sets register to successful if the user successfully registers an account
+			{
+				updatedRegister.successful = true;
+				this.setState({
+					register: updatedRegister
+				});
+				this.props.history.push('/home');
+			}
 
+			else{
+				this.props.history.push('/');
+			}
+			
+		}
+
+		catch(err){
+			console.log("Error: ", err);
+		}
 	}
 
 	render(){
