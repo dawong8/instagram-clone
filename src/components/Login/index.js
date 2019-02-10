@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Form, Button} from 'semantic-ui-react';
+import { Message, Grid, Form, Button} from 'semantic-ui-react';
 
 const Login = (props) => {
   return (

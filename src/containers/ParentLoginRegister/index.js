@@ -3,6 +3,7 @@ import { Divider, Container, Image, Grid } from 'semantic-ui-react';
 
 import Login from '../../components/Login';
 import Register from '../../components/Register';
+import ErrorMessage from '../../components/ErrorMessage';
 
 
 // Inline styling
@@ -27,27 +28,17 @@ class ParentLoginRegister extends Component{
 			login:{
 				email: '',
 				password: '',
-				successful: false
+				successful: false,
+				errorMsg: ''
 			},
 
 			register:{
 				username: '',
 				password: '',
 				email: '',
-				successful: false
+				successful: false,
+				errorMsg: ''
 			}
-
-
-			//Login information
-			// loginEmail: '',
-			// loginPassword: '',
-			// loginSuccessful: false,
-
-			//Register information
-			// registerUsername: '',
-			// registerPassword: '',
-			// registerEmail: '',
-			// registerSuccessful: false
 		}
 	}
 
@@ -118,6 +109,7 @@ class ParentLoginRegister extends Component{
 			if(parsedReponse.data === 'register successful')
 			// Sets register to successful if the user successfully registers an account
 			{
+				updatedRegister.errorMsg = '';
 				updatedRegister.successful = true;
 				this.setState({
 					register: updatedRegister
@@ -126,6 +118,18 @@ class ParentLoginRegister extends Component{
 			}
 
 			else{
+				if(parsedReponse.errmsg.includes('email')){
+					console.log("Email already exists");
+					updatedRegister.errorMsg = 'Email already exists. Please enter a new email';
+				}
+				else if(parsedReponse.errmsg.includes('username')){
+					console.log("Username already exists");
+					updatedRegister.errorMsg = 'Username already exists. Please enter a new username';
+				}
+
+				this.setState({
+					register: updatedRegister
+				});
 				this.props.history.push('/');
 			}
 			
@@ -156,7 +160,8 @@ class ParentLoginRegister extends Component{
 						</Grid.Row>
 
 						<Grid.Row className='registerContainer'>
-							<Register handleRegisterChange={this.handleRegisterChange} handleRegisterSubmit={this.handleRegisterSubmit}/>
+							<Register handleRegisterChange={this.handleRegisterChange} handleRegisterSubmit={this.handleRegisterSubmit} />
+							{this.state.register.errorMsg !== '' ? <ErrorMessage errorMessage={this.state.register.errorMsg}/> : null}
 						</Grid.Row>
 					</Grid.Column>
 				</Grid.Row>
