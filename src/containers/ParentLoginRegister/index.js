@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Divider, Container, Image, Grid, Segment } from 'semantic-ui-react';
+import { Divider, Container, Image, Grid } from 'semantic-ui-react';
 
 import Login from '../../components/Login';
 import Register from '../../components/Register';
@@ -24,52 +24,85 @@ class ParentLoginRegister extends Component{
 
 		this.state = {
 
+			login:{
+				email: '',
+				password: '',
+				successful: false
+			},
+
+			register:{
+				username: '',
+				password: '',
+				email: '',
+				successful: false
+			}
+
+
 			//Login information
-			loginEmail: '',
-			loginPassword: '',
-			loginSuccessful: false,
+			// loginEmail: '',
+			// loginPassword: '',
+			// loginSuccessful: false,
 
 			//Register information
-			registerUsername: '',
-			registerPassword: '',
-			registerEmail: '',
-			registerSuccessful: false
+			// registerUsername: '',
+			// registerPassword: '',
+			// registerEmail: '',
+			// registerSuccessful: false
 		}
 	}
 
 	// Handles the login submit form when the button is clicked
-	handleLoginSubmit = async (e) =>{
+	handleLoginSubmit = (e) =>{
 		e.preventDefault();
+		const updatedLogin = {
+			...this.state.login //spreads current value of login into updatedLogin
+		}
 
-		// const loginObject = {
-			
-		// }
-
-		// const response = await fetch('http://localhost:9000/auth/', {
-		// 	method: 'POST',
-		// 	credentials: 'include',
-		// 	body: JSON.stringify(this)
-
-		// });
-
-
+		updatedLogin.successful = true;
+		
 		this.setState({
-			loginSuccessful: true
+			login: updatedLogin
 		});
 	}
 
 	//
-	handleChange = (e) =>{
+	handleLoginChange = (e) =>{
+		const updatedChange = {
+			...this.state.login
+		}
+		updatedChange[e.target.name] = e.target.value;
+
 		this.setState({
-			[e.target.name]: e.target.value
+			login: updatedChange
+		});
+	}
+
+	handleRegisterChange = (e) => {
+		const updatedChange = {
+			...this.state.register
+		}
+		updatedChange[e.target.name] = e.target.value;
+
+		this.setState({
+			register: updatedChange
 		});
 	}
 
 	// Handles the register submit form when then the button is clicked
 	handleRegisterSubmit = (e) =>{
 		e.preventDefault();
+		const updatedRegister = {
+			...this.state.register //spreads current value of register into updatedRegister
+		}
+
+
+
+
+
+		// Sets register to successful if the user successfully registers an account
+		updatedRegister.successful = true;
 		this.setState({
-			registerSuccessful: true
+			register: updatedRegister
 		});
 
 	}
@@ -89,12 +122,12 @@ class ParentLoginRegister extends Component{
 
 					<Grid.Column>
 						<Grid.Row className='loginContainer'>
-							<Login handleChange={this.handleChange} handleLoginSubmit={this.handleLoginSubmit}/>
+							<Login handleLoginChange={this.handleLoginChange} handleLoginSubmit={this.handleLoginSubmit}/>
 							<Divider style={styles.dividerWidth}/>
 						</Grid.Row>
 
 						<Grid.Row className='registerContainer'>
-							<Register handleChange={this.handleChange} handleRegisterSubmit={this.handleRegisterSubmit}/>
+							<Register handleRegisterChange={this.handleRegisterChange} handleRegisterSubmit={this.handleRegisterSubmit}/>
 						</Grid.Row>
 					</Grid.Column>
 				</Grid.Row>
