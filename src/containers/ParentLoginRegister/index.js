@@ -26,7 +26,7 @@ class ParentLoginRegister extends Component{
 		this.state = {
 
 			login:{
-				email: '',
+				username: '',
 				password: '',
 				successful: false,
 				errorMsg: ''
@@ -43,17 +43,57 @@ class ParentLoginRegister extends Component{
 	}
 
 	// Handles the login submit form when the button is clicked
-	handleLoginSubmit = (e) =>{
+	handleLoginSubmit = async (e) =>{
 		e.preventDefault();
 		const updatedLogin = {
-			...this.state.login //spreads current value of login into updatedLogin
+			...this.state.login //spreads current value of register into updatedRegister
+		}
+		
+		try{
+			const response = await fetch('http://localhost:9000/auth/login', {
+			method: 'POST',
+			credentials: 'include',
+			body: JSON.stringify(updatedLogin),
+			headers: {
+				'Content-Type': 'application/json'
+				}
+			});
+
+			console.log("Login response: ", response);
+
+			if(!response.ok){
+				throw Error(response.statusText);
+
+			}
+
+			const parsedReponse = await response.json();
+			console.log("Parsed response: ", parsedReponse);
+
+			if(parsedReponse.data === 'login successful')
+			// Sets login to successful if the user successfully logs into account
+			{
+				updatedLogin.errorMsg = '';
+				updatedLogin.successful = true;
+				this.setState({
+					login: updatedLogin
+				});
+				this.props.history.push('/home');
+			}
+
+			else{
+				updatedLogin.errorMsg = 'Email/Password incorrectly entered. Make sure you have registered an account and have entered the correct login details';
+
+				this.setState({
+					login: updatedLogin
+				});
+				this.props.history.push('/');
+			}
+			
 		}
 
-		updatedLogin.successful = true;
-		
-		this.setState({
-			login: updatedLogin
-		});
+		catch(err){
+			console.log("Error: ", err);
+		}
 	}
 
 	//
@@ -156,6 +196,7 @@ class ParentLoginRegister extends Component{
 					<Grid.Column>
 						<Grid.Row className='loginContainer'>
 							<Login handleLoginChange={this.handleLoginChange} handleLoginSubmit={this.handleLoginSubmit}/>
+							{this.state.login.errorMsg !== '' ? <ErrorMessage errorMessage={this.state.login.errorMsg}/> : null}
 							<Divider style={styles.dividerWidth}/>
 						</Grid.Row>
 

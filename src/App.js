@@ -14,6 +14,15 @@ const My404 = () =>{
 }
 
 
+// Testing if the user has successfully logged in/registered account
+const MyHome = () => {
+  return(
+    <div>
+      You have successfully completed Login/Register and have entered <strong> Home </strong>
+    </div>
+    );
+}
+
 
 class App extends Component {
   render() {
@@ -21,6 +30,7 @@ class App extends Component {
       <main>
       	<Switch>
       		<Route exact path='/' component= { ParentLoginRegister } />
+          <Route exact path='/home' component={MyHome} />
       		<Route component= { My404 } />
       	</Switch>
       </main>

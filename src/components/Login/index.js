@@ -7,7 +7,7 @@ const Login = (props) => {
 			 <Form.Group>
 			 	<Grid container>
 		  			<Grid.Row centered>
-				  		<Form.Input className="containerWidth" type="email" name="email" onChange={props.handleLoginChange} placeholder='Email'/>
+				  		<Form.Input className="containerWidth" type="text" name="username" onChange={props.handleLoginChange} placeholder='Username'/>
 				  	</Grid.Row>
 				  	<Grid.Row centered>	
 				  		<Form.Input className="containerWidth" type="password" name="password" onChange={props.handleLoginChange} placeholder='Password'/>
