@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Form, Input, Button, Container } from 'semantic-ui-react';
+import { Message, Grid, Form, Button} from 'semantic-ui-react';
 
 const Login = (props) => {
   return (
@@ -7,10 +7,10 @@ const Login = (props) => {
 			 <Form.Group>
 			 	<Grid container>
 		  			<Grid.Row centered>
-				  		<Form.Input className="containerWidth" type="email" name="loginEmail" onChange={props.handleChange} placeholder='Email'/>
+				  		<Form.Input className="containerWidth" type="text" name="username" onChange={props.handleLoginChange} placeholder='Username'/>
 				  	</Grid.Row>
 				  	<Grid.Row centered>	
-				  		<Form.Input className="containerWidth" type="password" name="loginPassword" onChange={props.handleChange} placeholder='Password'/>
+				  		<Form.Input className="containerWidth" type="password" name="password" onChange={props.handleLoginChange} placeholder='Password'/>
 				  	</Grid.Row>
 				  	<Grid.Row centered>
 				  		<Button className="containerWidth" color='blue' type='submit'> Log In </Button>

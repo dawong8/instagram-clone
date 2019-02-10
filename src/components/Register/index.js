@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Form, Input, Button, Container } from 'semantic-ui-react';
+import { Grid, Form, Button } from 'semantic-ui-react';
 
 const Register = (props) => {
   return (
@@ -7,13 +7,13 @@ const Register = (props) => {
 			 <Form.Group>
 			 	<Grid container>
 		  			<Grid.Row centered>
-				  		<Form.Input className="containerWidth" type="text" name="registerUsername" onChange={props.handleChange} placeholder='Username'/>
+				  		<Form.Input className="containerWidth" type="text" name="username" onChange={props.handleRegisterChange} placeholder='Username'/>
 				  	</Grid.Row>
 				  	<Grid.Row centered>	
-				  		<Form.Input className="containerWidth" type="password" name="registerPassword" onChange={props.handleChange} placeholder='Password'/>
+				  		<Form.Input className="containerWidth" type="email" name="email" onChange={props.handleRegisterChange} placeholder='Email'/>
 				  	</Grid.Row>
 				  	<Grid.Row centered>	
-				  		<Form.Input className="containerWidth" type="email" name="registerEmail" onChange={props.handleChange} placeholder='Email'/>
+				  		<Form.Input className="containerWidth" type="password" name="password" onChange={props.handleRegisterChange} placeholder='Password'/>
 				  	</Grid.Row>
 				  	<Grid.Row centered>
 				  		<Button className="containerWidth" color='blue' type='submit'> Sign Up </Button>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Header, Divider, Container, Image, Grid, Segment } from 'semantic-ui-react';
+import { Divider, Container, Image, Grid } from 'semantic-ui-react';
 
 import Login from '../../components/Login';
 import Register from '../../components/Register';
+import ErrorMessage from '../../components/ErrorMessage';
 
 
 // Inline styling
@@ -24,41 +25,159 @@ class ParentLoginRegister extends Component{
 
 		this.state = {
 
-			//Login information
-			loginEmail: '',
-			loginPassword: '',
-			loginSuccessful: false,
+			login:{
+				username: '',
+				password: '',
+				successful: false,
+				errorMsg: ''
+			},
 
-			//Register information
-			registerUsername: '',
-			registerPassword: '',
-			registerEmail: '',
-			registerSuccessful: false
+			register:{
+				username: '',
+				password: '',
+				email: '',
+				successful: false,
+				errorMsg: ''
+			}
 		}
 	}
 
 	// Handles the login submit form when the button is clicked
-	handleLoginSubmit = (e) =>{
+	handleLoginSubmit = async (e) =>{
 		e.preventDefault();
-		this.setState({
-			loginSuccessful: true
-		});
+		const updatedLogin = {
+			...this.state.login //spreads current value of register into updatedRegister
+		}
+		
+		try{
+			const response = await fetch('http://localhost:9000/auth/login', {
+			method: 'POST',
+			credentials: 'include',
+			body: JSON.stringify(updatedLogin),
+			headers: {
+				'Content-Type': 'application/json'
+				}
+			});
+
+			console.log("Login response: ", response);
+
+			if(!response.ok){
+				throw Error(response.statusText);
+
+			}
+
+			const parsedReponse = await response.json();
+			console.log("Parsed response: ", parsedReponse);
+
+			if(parsedReponse.data === 'login successful')
+			// Sets login to successful if the user successfully logs into account
+			{
+				updatedLogin.errorMsg = '';
+				updatedLogin.successful = true;
+				this.setState({
+					login: updatedLogin
+				});
+				this.props.history.push('/home');
+			}
+
+			else{
+				updatedLogin.errorMsg = 'Email/Password incorrectly entered. Make sure you have registered an account and have entered the correct login details';
+
+				this.setState({
+					login: updatedLogin
+				});
+				this.props.history.push('/');
+			}
+			
+		}
+
+		catch(err){
+			console.log("Error: ", err);
+		}
 	}
 
 	//
-	handleChange = (e) =>{
+	handleLoginChange = (e) =>{
+		const updatedChange = {
+			...this.state.login
+		}
+		updatedChange[e.target.name] = e.target.value;
+
 		this.setState({
-			[e.target.name]: e.target.value
+			login: updatedChange
+		});
+	}
+
+	handleRegisterChange = (e) => {
+		const updatedChange = {
+			...this.state.register
+		}
+		updatedChange[e.target.name] = e.target.value;
+
+		this.setState({
+			register: updatedChange
 		});
 	}
 
 	// Handles the register submit form when then the button is clicked
-	handleRegisterSubmit = (e) =>{
+	handleRegisterSubmit = async (e) =>{
 		e.preventDefault();
-		this.setState({
-			registerSuccessful: true
-		});
+		const updatedRegister = {
+			...this.state.register //spreads current value of register into updatedRegister
+		}
+		
+		try{
+			const response = await fetch('http://localhost:9000/auth', {
+			method: 'POST',
+			credentials: 'include',
+			body: JSON.stringify(updatedRegister),
+			headers: {
+				'Content-Type': 'application/json'
+				}
+			});
 
+			// console.log("Register response: ",response);
+
+			if(!response.ok){
+				throw Error(response.statusText);
+
+			}
+
+			const parsedReponse = await response.json();
+			console.log("Parsed response: ", parsedReponse);
+
+			if(parsedReponse.data === 'register successful')
+			// Sets register to successful if the user successfully registers an account
+			{
+				updatedRegister.errorMsg = '';
+				updatedRegister.successful = true;
+				this.setState({
+					register: updatedRegister
+				});
+				this.props.history.push('/home');
+			}
+
+			else{
+				if(parsedReponse.errmsg.includes('email')){
+					console.log("Email already exists");
+					updatedRegister.errorMsg = 'Email already exists. Please enter a new email';
+				}
+				else if(parsedReponse.errmsg.includes('username')){
+					console.log("Username already exists");
+					updatedRegister.errorMsg = 'Username already exists. Please enter a new username';
+				}
+
+				this.setState({
+					register: updatedRegister
+				});
+				this.props.history.push('/');
+			}
+			
+		}
+
+		catch(err){
+			console.log("Error: ", err);
+		}
 	}
 
 	render(){
@@ -76,12 +195,14 @@ class ParentLoginRegister extends Component{
 
 					<Grid.Column>
 						<Grid.Row className='loginContainer'>
-							<Login handleChange={this.handleChange} handleLoginSubmit={this.handleLoginSubmit}/>
+							<Login handleLoginChange={this.handleLoginChange} handleLoginSubmit={this.handleLoginSubmit}/>
+							{this.state.login.errorMsg !== '' ? <ErrorMessage errorMessage={this.state.login.errorMsg}/> : null}
 							<Divider style={styles.dividerWidth}/>
 						</Grid.Row>
 
 						<Grid.Row className='registerContainer'>
-							<Register handleChange={this.handleChange} handleRegisterSubmit={this.handleRegisterSubmit}/>
+							<Register handleRegisterChange={this.handleRegisterChange} handleRegisterSubmit={this.handleRegisterSubmit} />
+							{this.state.register.errorMsg !== '' ? <ErrorMessage errorMessage={this.state.register.errorMsg}/> : null}
 						</Grid.Row>
 					</Grid.Column>
 				</Grid.Row>
