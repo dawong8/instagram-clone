@@ -4,13 +4,14 @@ import { Divider, Container, Image, Grid } from 'semantic-ui-react';
 import Login from '../../components/Login';
 import Register from '../../components/Register';
 import ErrorMessage from '../../components/ErrorMessage';
+import Facebook from '../Facebook';
 
 
 // Inline styling
 const styles = {
 	textFont: {
 		fontSize: '70px',
-	  	margintop: '30px'
+		margintop: '30px'
 	},
 	dividerWidth:{
 		marginTop: '8%',
@@ -41,6 +42,7 @@ class ParentLoginRegister extends Component{
 			}
 		}
 	}
+
 
 	// Handles the login submit form when the button is clicked
 	handleLoginSubmit = async (e) =>{
@@ -118,6 +120,141 @@ class ParentLoginRegister extends Component{
 			register: updatedChange
 		});
 	}
+
+	setStateFacebook = async (name, email, id, status) =>{
+		if(status === 'register')
+		{
+			this.setState({
+				register:{
+					username: name,
+					email: email,
+					password: id,
+					successful: false,
+					errorMsg: ''
+				}
+			});
+
+			const updatedRegister = {
+			...this.state.register //spreads current value of register into updatedRegister
+			}
+
+
+			try{
+			const response = await fetch('http://localhost:9000/auth', {
+			method: 'POST',
+			credentials: 'include',
+			body: JSON.stringify(updatedRegister),
+			headers: {
+				'Content-Type': 'application/json'
+				}
+			});
+
+			// console.log("Register response: ",response);
+
+			if(!response.ok){
+				throw Error(response.statusText);
+
+			}
+
+			const parsedReponse = await response.json();
+			console.log("Parsed response: ", parsedReponse);
+
+			if(parsedReponse.data === 'register successful')
+			// Sets register to successful if the user successfully registers an account
+			{
+				updatedRegister.errorMsg = '';
+				updatedRegister.successful = true;
+				this.setState({
+					register: updatedRegister
+				});
+				this.props.history.push('/home');
+			}
+
+			else{
+				if(parsedReponse.errmsg.includes('email')){
+					console.log("Email already exists");
+					updatedRegister.errorMsg = 'Email already exists. Please enter a new email';
+				}
+				else if(parsedReponse.errmsg.includes('username')){
+					console.log("Username already exists");
+					updatedRegister.errorMsg = 'Username already exists. Please enter a new username';
+				}
+
+				this.setState({
+					register: updatedRegister
+				});
+				this.props.history.push('/');
+			}
+			
+		}
+
+		catch(err){
+			console.log("Error: ", err);
+		}
+	}
+
+		else{
+			this.setState({
+				login:{
+					username: name,
+					password: id,
+					successful: false,
+					errorMsg: ''
+				}
+			});
+
+			const updatedLogin = {
+			...this.state.login //spreads current value of register into updatedRegister
+		}
+
+			try{
+				const response = await fetch('http://localhost:9000/auth/login', {
+				method: 'POST',
+				credentials: 'include',
+				body: JSON.stringify(updatedLogin),
+				headers: {
+					'Content-Type': 'application/json'
+					}
+				});
+
+				console.log("Login response: ", response);
+
+				if(!response.ok){
+					throw Error(response.statusText);
+
+				}
+
+				const parsedReponse = await response.json();
+				console.log("Parsed response: ", parsedReponse);
+
+				if(parsedReponse.data === 'login successful')
+				// Sets login to successful if the user successfully logs into account
+				{
+					updatedLogin.errorMsg = '';
+					updatedLogin.successful = true;
+					this.setState({
+						login: updatedLogin
+					});
+					this.props.history.push('/home');
+				}
+
+				else{
+					updatedLogin.errorMsg = 'Email/Password incorrectly entered. Make sure you have registered an account and have entered the correct login details';
+
+					this.setState({
+						login: updatedLogin
+					});
+					this.props.history.push('/');
+				}
+			
+		}
+
+		catch(err){
+			console.log("Error: ", err);
+		}
+		}
+	}
+
 
 	// Handles the register submit form when then the button is clicked
 	handleRegisterSubmit = async (e) =>{
@@ -197,12 +334,15 @@ class ParentLoginRegister extends Component{
 						<Grid.Row className='loginContainer'>
 							<Login handleLoginChange={this.handleLoginChange} handleLoginSubmit={this.handleLoginSubmit}/>
 							{this.state.login.errorMsg !== '' ? <ErrorMessage errorMessage={this.state.login.errorMsg}/> : null}
+							<Facebook setStateFacebook={this.setStateFacebook} buttonText={"Login with Facebook"}/>
 							<Divider style={styles.dividerWidth}/>
+
 						</Grid.Row>
 
 						<Grid.Row className='registerContainer'>
 							<Register handleRegisterChange={this.handleRegisterChange} handleRegisterSubmit={this.handleRegisterSubmit} />
 							{this.state.register.errorMsg !== '' ? <ErrorMessage errorMessage={this.state.register.errorMsg}/> : null}
+							<Facebook setStateFacebook={this.setStateFacebook} buttonText={"SignUp with Facebook"}/>
 						</Grid.Row>
 					</Grid.Column>
 				</Grid.Row>
