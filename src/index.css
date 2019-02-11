@@ -36,5 +36,9 @@ code {
   border: 1px solid black;
 }
 
+.kep-login-facebook{
+  margin-top: 10px;
+}
+
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:700i');
 
