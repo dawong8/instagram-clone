@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import './App.css';
 
 import ParentLoginRegister from './containers/ParentLoginRegister';
+import MainContainer from './containers/MainContainer';
+
 import { Route, Switch } from 'react-router-dom';
 
 const My404 = () =>{
@@ -30,7 +32,7 @@ class App extends Component {
       <main>
       	<Switch>
       		<Route exact path='/' component= { ParentLoginRegister } />
-          <Route exact path='/home' component={MyHome} />
+          <Route exact path='/home' component={MainContainer} />
       		<Route component= { My404 } />
       	</Switch>
       </main>
