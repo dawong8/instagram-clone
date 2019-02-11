@@ -80,7 +80,7 @@ class ParentLoginRegister extends Component{
 
 	fetchRegister = async (updatedRegister) =>{
 		try{
-			const response = await fetch('http://localhost:9000/auth', {
+			const response = await fetch('http://localhost:9000/api/v1/auth', {
 			method: 'POST',
 			credentials: 'include',
 			body: JSON.stringify(updatedRegister),
@@ -137,7 +137,7 @@ class ParentLoginRegister extends Component{
 
 	fetchLogin = async (updatedLogin) =>{
 		try{
-				const response = await fetch('http://localhost:9000/auth/login', {
+				const response = await fetch('http://localhost:9000/api/v1/auth/login', {
 				method: 'POST',
 				credentials: 'include',
 				body: JSON.stringify(updatedLogin),
