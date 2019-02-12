@@ -4,13 +4,15 @@ import './App.css';
 
 import ParentLoginRegister from './containers/ParentLoginRegister';
 import MainContainer from './containers/MainContainer';
+import ProfileContainer from './containers/ProfileContainer';
+import EditProfile from './containers/EditProfile';
 
 import { Route, Switch } from 'react-router-dom';
 
 const My404 = () =>{
 	return(
 		<div>
-			You Are Lost!!!
+			 <h1> You Are Lost!!!</h1>
 		</div>
 	);
 }
@@ -31,8 +33,10 @@ class App extends Component {
     return (
       <main>
       	<Switch>
-      		<Route exact path='/' component= { ParentLoginRegister } />
-          <Route exact path='/home' component={MainContainer} />
+      		<Route exact path = '/' component= { ParentLoginRegister } />
+          <Route exact path = '/home' component={MainContainer} />
+          <Route exact path = '/profile' component= { ProfileContainer } />
+          <Route exact path = '/profile/edit' component = { EditProfile} />
       		<Route component= { My404 } />
       	</Switch>
       </main>

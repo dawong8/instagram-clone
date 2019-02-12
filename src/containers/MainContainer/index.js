@@ -21,15 +21,19 @@ class MainContainer extends Component {
 	componentDidMount () {
 		this.getPost();
 	}
+	
 	getPost = async (arg) => {
 		try {
 
-			const response = await fetch('http://localhost:9000/api/v1/post');
+			const response = await fetch('http://localhost:9000/api/v1/post', {
+				credentials: 'include'
+			});
 
 			if (!response.ok) {
 				throw Error(response.statusText);
 			}
 			const postParsed = await response.json(); 
+			console.log("getAllPosts parsed posts: ", postParsed);
 
 			this.setState({
 				posts: postParsed 
@@ -50,6 +54,8 @@ class MainContainer extends Component {
         formData.append('description', this.state.description);
 
         const config = {
+        	credentials: 'include',
+
             headers: {
                 'content-type': 'multipart/form-data'
             }
@@ -67,6 +73,8 @@ class MainContainer extends Component {
         	description: '', 
         	message: ''
         })
+
+        this.getPost();
     }
     onChange(e) {
         this.setState({file:e.target.files[0]});
