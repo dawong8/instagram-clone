@@ -49,15 +49,17 @@ class MainContainer extends Component {
 
 	getCurrentUser = async (arg) => {
 		try {
-			const response = await fetch('http://localhost:9000/api/v1/auth'); 
+			const response = await fetch('http://localhost:9000/api/v1/auth');
 			if (!response.ok) {
 				throw Error(response.statusText);
 			}
-			const userParsed = await response.json(); 
+			const moviesParsed = await response.json(); 
+			console.log(moviesParsed);
+			// this.setState({
+				 
+			// });
 
-			this.setState({
-				currentUser: userParsed.username 
-			});
+
 
 		} catch (err) {
 			return err; 
