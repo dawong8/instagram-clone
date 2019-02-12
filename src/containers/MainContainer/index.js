@@ -1,5 +1,4 @@
 import React, {Component} from 'react'; 
-import { Divider, Container, Image, Grid } from 'semantic-ui-react';
 import PostList from '../../components/ShowAllPost';
 
 const axios = require("axios");
@@ -11,15 +10,21 @@ class MainContainer extends Component {
 		this.state = {
 			posts: [], 
 
-			file: null, 
-			description: '', 
+			myPost: {
+				file: null, 
+				description: '',
+			},
+			 
+
+			currentUser: '' // should be a username
 		}
-		this.onFormSubmit = this.onFormSubmit.bind(this);
+		//this.onFormSubmit = this.onFormSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
 	}
 
 	componentDidMount () {
 		this.getPost();
+		this.getCurrentUser();
 	}
 	getPost = async (arg) => {
 		try {
@@ -32,8 +37,29 @@ class MainContainer extends Component {
 			const postParsed = await response.json(); 
 
 			this.setState({
-				posts: postParsed 
+				
+				posts:  postParsed
+				
 			});
+
+		} catch (err) {
+			return err; 
+		}
+	}
+
+	getCurrentUser = async (arg) => {
+		try {
+			const response = await fetch('http://localhost:9000/api/v1/auth');
+			if (!response.ok) {
+				throw Error(response.statusText);
+			}
+			const moviesParsed = await response.json(); 
+			console.log(moviesParsed);
+			// this.setState({
+				 
+			// });
+
+
 
 		} catch (err) {
 			return err; 
@@ -42,43 +68,63 @@ class MainContainer extends Component {
 
 
 
-
-	onFormSubmit(e){
+	onFormSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('myImage',this.state.file);
-        formData.append('description', this.state.description);
+        formData.append('myImage',this.state.myPost.file);
+        formData.append('description', this.state.myPost.description);
 
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
             }
         };
+        let tempObj; 
 
-
-        axios.post("http://localhost:9000/api/v1/post", formData ,config)
-            .then((response) => {
+        const res = await axios.post("http://localhost:9000/api/v1/post", formData ,config)
+            .then(  (response) => {
                 // do nothing 
+                //parsedJson = response.json();
+                console.log('it worked', response.data.newPost); 
+
+                tempObj =  response.data.newPost;
             }).catch((error) => {
             	//alert('error');
+            	console.log('err', error);
         });
+        console.log('at this point, what is tempObj', tempObj);
 
         this.setState({
-        	description: '', 
-        	message: ''
-        })
+        	posts: [...this.state.posts, tempObj],
+
+        	myPost: { 
+					description: '', 
+					file: null
+				}
+        }); 
+
     }
     onChange(e) {
-        this.setState({file:e.target.files[0]});
+        this.setState({
+        	myPost : {
+        		...this.state.myPost, 
+        		file: e.target.files[0]
+
+        	}
+        });
     }
 
     handleInput = (e) => {
     	this.setState({
-    		description: e.target.value
+    		myPost : {
+    			...this.state.myPost, 
+    			description: e.target.value
+    		}
     	});
     }
 
 	render() {
+		console.log('this.state', this.state);
 		return ( 
 			<div> 
 				<form onSubmit={this.onFormSubmit} ref="createPostForm" >
