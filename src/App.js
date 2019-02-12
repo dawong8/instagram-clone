@@ -19,13 +19,13 @@ const My404 = () =>{
 
 
 // Testing if the user has successfully logged in/registered account
-const MyHome = () => {
-  return(
-    <div>
-      You have successfully completed Login/Register and have entered <strong> Home </strong>
-    </div>
-    );
-}
+// const MyHome = () => {
+//   return(
+//     <div>
+//       You have successfully completed Login/Register and have entered <strong> Home </strong>
+//     </div>
+//     );
+// }
 
 
 class App extends Component {
@@ -36,7 +36,7 @@ class App extends Component {
       		<Route exact path = '/' component= { ParentLoginRegister } />
           <Route exact path = '/home' component={MainContainer} />
           <Route exact path = '/profile' component= { ProfileContainer } />
-          <Route exact path = '/profile/edit' component = { EditProfile} />
+          <Route exact path = '/profile/edit' component = { EditProfile } />
       		<Route component= { My404 } />
       	</Switch>
       </main>

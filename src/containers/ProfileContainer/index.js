@@ -1,5 +1,4 @@
 import React, {Component} from 'react'; 
-import { Divider, Container, Image, Grid } from 'semantic-ui-react';
 import Header from '../../components/Header';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';

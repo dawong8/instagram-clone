@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Divider, Container, Image, Grid } from 'semantic-ui-react';
 
+import Cookies from 'universal-cookie';
 import Login from '../../components/Login';
 import Register from '../../components/Register';
 import ErrorMessage from '../../components/ErrorMessage';
@@ -107,6 +108,11 @@ class ParentLoginRegister extends Component{
 				this.setState({
 					register: updatedRegister
 				});
+
+				const cookies = new Cookies();
+				console.log("Register username: ", this.state.register.username);
+				cookies.set('userId', parsedReponse.userId);
+				console.log("Cookie value: ", cookies.get('userId'));
 				this.props.history.push('/home');
 			}
 
@@ -123,6 +129,7 @@ class ParentLoginRegister extends Component{
 				this.setState({
 					register: updatedRegister
 				});
+
 				this.props.history.push('/');
 			}
 			
@@ -154,7 +161,9 @@ class ParentLoginRegister extends Component{
 				}
 
 				const parsedReponse = await response.json();
+				console.log("***** ParentLoginRegister *****");
 				console.log("Parsed response: ", parsedReponse);
+				console.log("*****");
 
 				if(parsedReponse.data === 'login successful')
 				// Sets login to successful if the user successfully logs into account
@@ -164,6 +173,11 @@ class ParentLoginRegister extends Component{
 					this.setState({
 						login: updatedLogin
 					});
+					const cookies = new Cookies();
+					console.log("***** ParentLoginRegister *****");
+					console.log("Login username: ", this.state.login.username);
+					cookies.set('userId', parsedReponse.userId);
+					console.log("Cookie value: ", cookies.get('userId'));
 					this.props.history.push('/home');
 				}
 
