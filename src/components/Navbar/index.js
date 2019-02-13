@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import {withRouter} from 'react-router-dom';
+import './index.css';
 
 
 const Navbar = (props) =>{
