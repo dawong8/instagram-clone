@@ -55,6 +55,24 @@ class ParentLoginRegister extends Component{
 		this.fetchLogin(updatedLogin);
 	}
 
+	// Handles the register submit form when then the button is clicked
+	handleRegisterSubmit = (e) =>{
+		e.preventDefault();
+		const updatedRegister = {
+			...this.state.register //spreads current value of register into updatedRegister
+		}
+		
+
+
+
+
+		// Check if the password or username contain any unallowable characters
+		// here. Only if they contain the right format should you be forward the result  
+		// to fetchRegister. START WITH YOUR CODE FROM HERE... Should make these same 
+		// verifications when updating the user profile info.
+		this.fetchRegister(updatedRegister);
+	}
+
 	//
 	handleLoginChange = (e) =>{
 		const updatedChange = {
@@ -237,17 +255,6 @@ class ParentLoginRegister extends Component{
 
 			this.fetchLogin(updatedLogin);
 		}
-	}
-
-
-	// Handles the register submit form when then the button is clicked
-	handleRegisterSubmit = (e) =>{
-		e.preventDefault();
-		const updatedRegister = {
-			...this.state.register //spreads current value of register into updatedRegister
-		}
-		
-		this.fetchRegister(updatedRegister);
 	}
 
 	render(){
