@@ -113,6 +113,7 @@ class ParentLoginRegister extends Component{
 				console.log("Register username: ", this.state.register.username);
 				cookies.set('userId', parsedReponse.userId);
 				console.log("Cookie value: ", cookies.get('userId'));
+				localStorage.setItem('username', parsedReponse.userId);
 				this.props.history.push('/home');
 			}
 

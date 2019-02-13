@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Reenie+Beanie');
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:700i');
 
 * {
-  font-family: 'Reenie Beanie', cursive !important;
+  /*font-family: 'Reenie Beanie', cursive !important;*/
+  font-family: 'Josefin Sans', sans-serif;
 /*  background: #8B4513 ;
 */
 }
