@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:700i');
+
+
 body {
   font-family: 'Josefin Sans', cursive;
   margin: 0;
@@ -39,6 +42,3 @@ code {
 .kep-login-facebook{
   margin-top: 10px;
 }
-
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:700i');
-

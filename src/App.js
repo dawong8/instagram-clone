@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-
-
-
 import AllRoutes from './components/Routes';
-
 
 
 class App extends Component {
@@ -20,10 +16,7 @@ class App extends Component {
   render() {
     return (
       <main>
-
-      	<AllRoutes />
-
-
+        <AllRoutes />
       </main>
     );
   }

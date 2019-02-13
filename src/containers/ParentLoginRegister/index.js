@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Divider, Container, Image, Grid } from 'semantic-ui-react';
 
+import Cookies from 'universal-cookie';
 import Login from '../../components/Login';
 import Register from '../../components/Register';
 import ErrorMessage from '../../components/ErrorMessage';
@@ -52,6 +53,38 @@ class ParentLoginRegister extends Component{
 		}
 		
 		this.fetchLogin(updatedLogin);
+	}
+
+	// Handles the register submit form when then the button is clicked
+	handleRegisterSubmit = (e) =>{
+		e.preventDefault();
+		const updatedRegister = {
+			...this.state.register //spreads current value of register into updatedRegister
+		}
+		
+
+
+
+
+		// Check if the password or username contain any unallowable characters
+		// here. Only if they contain the right format should you be forward the result  
+		// to fetchRegister. START WITH YOUR CODE FROM HERE... Should make these same 
+		// verifications when updating the user profile info.
+
+		const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})");
+		// console.log("Password test: ",strongRegex.test(updatedRegister.password));
+		if(strongRegex.test(updatedRegister.password)){
+			console.log("Password matches standard");
+			this.fetchRegister(updatedRegister);
+		}
+
+		else{
+			console.log("Invalid password standard");
+			updatedRegister.errorMsg = "Password doesn't meet the standard. Password must contain 1 uppercase, 1 lowercase, 1 numeric, 1 special character[!,@,#,$,%,^ and &] and be 6 characters or more.";
+			this.setState({
+				register: updatedRegister
+			});
+		}
 	}
 
 	//
@@ -107,6 +140,12 @@ class ParentLoginRegister extends Component{
 				this.setState({
 					register: updatedRegister
 				});
+
+				const cookies = new Cookies();
+				console.log("Register username: ", this.state.register.username);
+				cookies.set('userId', parsedReponse.userId);
+				console.log("Cookie value: ", cookies.get('userId'));
+				localStorage.setItem('username', parsedReponse.userId);
 				this.props.history.push('/home');
 			}
 
@@ -123,6 +162,7 @@ class ParentLoginRegister extends Component{
 				this.setState({
 					register: updatedRegister
 				});
+
 				this.props.history.push('/');
 			}
 			
@@ -154,7 +194,9 @@ class ParentLoginRegister extends Component{
 				}
 
 				const parsedReponse = await response.json();
+				console.log("***** ParentLoginRegister *****");
 				console.log("Parsed response: ", parsedReponse);
+				console.log("*****");
 
 				if(parsedReponse.data === 'login successful')
 				// Sets login to successful if the user successfully logs into account
@@ -164,6 +206,11 @@ class ParentLoginRegister extends Component{
 					this.setState({
 						login: updatedLogin
 					});
+					const cookies = new Cookies();
+					console.log("***** ParentLoginRegister *****");
+					console.log("Login username: ", this.state.login.username);
+					cookies.set('userId', parsedReponse.userId);
+					console.log("Cookie value: ", cookies.get('userId'));
 					this.props.history.push('/home');
 				}
 
@@ -222,17 +269,6 @@ class ParentLoginRegister extends Component{
 
 			this.fetchLogin(updatedLogin);
 		}
-	}
-
-
-	// Handles the register submit form when then the button is clicked
-	handleRegisterSubmit = (e) =>{
-		e.preventDefault();
-		const updatedRegister = {
-			...this.state.register //spreads current value of register into updatedRegister
-		}
-		
-		this.fetchRegister(updatedRegister);
 	}
 
 	render(){

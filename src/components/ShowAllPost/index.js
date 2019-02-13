@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import CommentContainer from '../../containers/CommentContainer';
 import EditPost from '../EditPost';
 
-
-
 const PostList = (props) =>{
 
 

@@ -1,0 +1,8 @@
+span{
+	color: #4183C4;
+}
+
+span:hover{
+	color: #1e70bf;
+	cursor: pointer;
+}
