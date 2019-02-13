@@ -70,7 +70,23 @@ class ParentLoginRegister extends Component{
 		// here. Only if they contain the right format should you be forward the result  
 		// to fetchRegister. START WITH YOUR CODE FROM HERE... Should make these same 
 		// verifications when updating the user profile info.
-		this.fetchRegister(updatedRegister);
+
+		const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})");
+		// console.log("Password test: ",strongRegex.test(updatedRegister.password));
+		if(strongRegex.test(updatedRegister.password)){
+			console.log("Password matches standard")
+		}
+
+		else{
+			console.log("Invalid password standard");
+			updatedRegister.errorMsg = "Password doesn't meet the standard. Password must contain 1 uppercase, 1 lowercase, 1 numeric, 1 special character[!,@,#,$,%,^ and &] and be 6 characters or more.";
+			this.setState({
+				register: updatedRegister
+			});
+		}
+
+
+		// this.fetchRegister(updatedRegister);
 	}
 
 	//
