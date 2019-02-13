@@ -1,6 +1,5 @@
 import React, {Component} from 'react'; 
 import PostList from '../../components/ShowAllPost';
-
 const axios = require("axios");
 
 
@@ -14,9 +13,13 @@ class MainContainer extends Component {
 				file: null, 
 				description: '',
 			},
-			 
 
-			currentUser: '' // should be a username
+
+			addComment: false, // press button to add comment 
+
+			editPost: false, 
+			currentPostId: ''
+
 		}
 		//this.onFormSubmit = this.onFormSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -24,14 +27,15 @@ class MainContainer extends Component {
 
 	componentDidMount () {
 		this.getPost();
-		this.getCurrentUser();
 	}
 	
+
 	getPost = async (arg) => {
 		try {
 
 			const response = await fetch('http://localhost:9000/api/v1/post', {
 				credentials: 'include'
+
 			});
 
 			if (!response.ok) {
@@ -42,7 +46,7 @@ class MainContainer extends Component {
 
 			this.setState({
 				
-				posts:  postParsed
+				posts: postParsed
 				
 			});
 
@@ -50,26 +54,6 @@ class MainContainer extends Component {
 			return err; 
 		}
 	}
-
-	getCurrentUser = async (arg) => {
-		try {
-			const response = await fetch('http://localhost:9000/api/v1/auth');
-			if (!response.ok) {
-				throw Error(response.statusText);
-			}
-			const moviesParsed = await response.json(); 
-			console.log(moviesParsed);
-			// this.setState({
-				 
-			// });
-
-
-
-		} catch (err) {
-			return err; 
-		}
-	}
-
 
 
 	onFormSubmit = async (e) => {
@@ -79,13 +63,12 @@ class MainContainer extends Component {
         formData.append('description', this.state.myPost.description);
 
         const config = {
-        	credentials: 'include',
-
+        	withCredentials: true,
             headers: {
                 'content-type': 'multipart/form-data'
             }
         };
-        let tempObj; 
+        let tempObj;
 
         const res = await axios.post("http://localhost:9000/api/v1/post", formData ,config)
             .then(  (response) => {
@@ -98,7 +81,12 @@ class MainContainer extends Component {
             	//alert('error');
             	console.log('err', error);
         });
+
+        
+
         console.log('at this point, what is tempObj', tempObj);
+
+
 
         this.setState({
         	posts: [...this.state.posts, tempObj],
@@ -128,6 +116,123 @@ class MainContainer extends Component {
     	});
     }
 
+
+    deletePost = async (id) => {
+    	try {
+    		
+    		const response = await fetch('http://localhost:9000/api/v1/post/' + id, {
+				method: 'DELETE'
+			});
+			if (!response.ok) {
+				throw Error(response.statusText);
+			}
+
+			//const parsedDeletedMovie = await response.json(); 
+			this.setState({
+				posts: this.state.posts.filter( post => post._id !== id)
+
+			});
+
+
+    	} catch (err) {
+    		return err; 
+    	}
+    }
+
+    addlike = async (post) => {
+    	try {
+    		console.log('sent over post', post);
+    		const temp = {
+    			...post, 
+    			likes: post.likes + 1
+    		}
+    		console.log('added like', temp);
+    		const response = await fetch('http://localhost:9000/api/v1/post/' + post._id, {
+				method: 'PUT',
+				body: JSON.stringify(temp), 
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			if(!response.ok) {
+				return Error(response.statusText);
+			}
+
+			const editParsed = await response.json(); 
+
+			console.log('edited parsed', editParsed);
+
+
+			const tempArray = this.state.posts.map((item) => {
+					if (item._id === post._id) {
+						item = editParsed;
+					} 
+					return item; 
+					
+				});
+
+
+			this.setState({
+				posts: tempArray
+			});
+
+
+    	} catch (err) {
+    		return err; 
+    	}
+    }
+
+    addComment = (id) => {
+    	this.setState({
+    		addComment: !this.state.addComment,
+    		currentPostId: id
+    	});
+    }
+    editPost = (id) => {
+    	this.setState({
+    		editPost: !this.state.editPost, 
+    		currentPostId: id
+    	})
+    }
+
+    editingPost = async (post) => {
+    	try {
+			const response = await fetch('http://localhost:9000/api/v1/post/' + post._id, {
+				method: 'PUT',
+				body: JSON.stringify(post), 
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			if(!response.ok) {
+				return Error(response.statusText);
+			}
+
+			const editParsed = await response.json(); 
+
+			console.log('edited parsed', editParsed);
+
+
+			const tempArray = this.state.posts.map((item) => {
+					if (item._id === post._id) {
+						item = editParsed;
+					} 
+					return item; 
+					
+				});
+
+
+			this.setState({
+				posts: tempArray
+			});
+
+			} catch (err) {
+    			return err;
+    	}
+    }
+
 	render() {
 		console.log('this.state', this.state);
 		return ( 
@@ -138,7 +243,7 @@ class MainContainer extends Component {
 					<input type='submit' />
 				</form>
 				<p> All existing Posts </p>
-				<PostList allPosts={this.state.posts} /> 
+				<PostList allPosts={this.state.posts} getUser={this.getCurrentUser} editPost={this.editPost} canEdit={this.state.editPost} editingPost={this.editingPost} deletePost={this.deletePost} addlike={this.addlike} addComment={this.addComment} canComment={this.state.addComment} currentPostId={this.state.currentPostId} /> 
 			</div>
 			)
 	}

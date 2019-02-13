@@ -240,7 +240,7 @@ class ParentLoginRegister extends Component{
 		return(
 			<Grid>
 				<Container textAlign='center'>
-					<h1 style={styles.textFont}> Instaclone </h1>
+					<h1 style={styles.textFont}> Flutter </h1>
 				</Container>
 
 				<Grid.Row columns={2}>
