@@ -42,7 +42,7 @@ const Navbar = (props) =>{
 
 		<header>
 			<ul>
-				<li> <Link to ='#'> All Posts </Link></li>
+				<li> <Link to ='/home'> All Posts </Link></li>
 				<li> <Link to = '/profile/edit'> Edit Profile </Link></li>
 				<li> <Link to = '#'> Delete Profile </Link></li>
 				<li> <span onClick={MyLogout}> Logout </span></li>				

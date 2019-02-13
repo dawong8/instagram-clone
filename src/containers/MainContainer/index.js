@@ -1,5 +1,8 @@
 import React, {Component} from 'react'; 
 import PostList from '../../components/ShowAllPost';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import Navbar from '../../components/Navbar';
 
 const axios = require("axios");
 
@@ -132,6 +135,8 @@ class MainContainer extends Component {
 		console.log('this.state', this.state);
 		return ( 
 			<div> 
+				<Header/>
+				<Navbar/>
 				<form onSubmit={this.onFormSubmit} ref="createPostForm" >
 					<input type='file' name="myImage" onChange={this.onChange}/>
 					<input type='text' name='description' onChange={this.handleInput} value={this.state.description}/>
@@ -139,6 +144,7 @@ class MainContainer extends Component {
 				</form>
 				<p> All existing Posts </p>
 				<PostList allPosts={this.state.posts} /> 
+				<Footer/>
 			</div>
 			)
 	}
