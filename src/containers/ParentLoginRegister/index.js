@@ -74,7 +74,8 @@ class ParentLoginRegister extends Component{
 		const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})");
 		// console.log("Password test: ",strongRegex.test(updatedRegister.password));
 		if(strongRegex.test(updatedRegister.password)){
-			console.log("Password matches standard")
+			console.log("Password matches standard");
+			this.fetchRegister(updatedRegister);
 		}
 
 		else{
@@ -84,9 +85,6 @@ class ParentLoginRegister extends Component{
 				register: updatedRegister
 			});
 		}
-
-
-		// this.fetchRegister(updatedRegister);
 	}
 
 	//
