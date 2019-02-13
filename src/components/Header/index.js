@@ -4,7 +4,7 @@ import './index.css';
 const Header = (props) => {
   return (
 	  	<div> 
-	  		<h1> Instaclone </h1>
+	  		<h1> Flutter </h1>
 	  	</div>
     );
 }
