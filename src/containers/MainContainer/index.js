@@ -23,7 +23,8 @@ class MainContainer extends Component {
 			addComment: false, // press button to add comment 
 
 			editPost: false, 
-			currentPostId: ''
+			currentPostId: '',
+			currentUser: ''
 
 		}
 		//this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -32,6 +33,7 @@ class MainContainer extends Component {
 
 	componentDidMount () {
 		this.getPost();
+		this.getCurrentUser();
 	}
 	
 
@@ -238,14 +240,68 @@ class MainContainer extends Component {
     	}
     }
 
-    getCurrentUser = () =>{
+    getCurrentUser = async () =>{
     	// Currently just prints the id of the current user that is logged in
-    	const cookies = new Cookies();
-    	console.log("Current User: ", cookies.get('userId'));
-    	console.log("Current state: ", this.state);
 
+    	try{
+    		const cookies = new Cookies();
+	    	// Get current user id
+	    	const currentUserId = cookies.get('userId');
+	    	// Find name of user with current id by making request to server
+	    	const response = await fetch("http://localhost:9000/api/v1/user/"+currentUserId,{
+	    		credentials: 'include'
+	    	}); 
 
+	    	if(!response.ok) {
+					return Error(response.statusText);
+			}
+
+			const foundUserParsed = await response.json(); 
+
+			console.log('Parsed found User: ', foundUserParsed.username);
+
+			this.setState({
+				currentUser: foundUserParsed.username
+			});
+
+			// console.log("State currentUser: ", this.state.currentUser);
+	    }
+
+    	catch(err){
+    		console.log(err);
+    	}
+    	//console.log("Current state: ", this.state);
+    	//console.log("Current Target Owner: ",e.currentTarget.closest('.completePost').querySelector(".postOwner").innerText);
     }
+/*
+    followButtonClicked = async () => {
+    	const check = false;
+    	try{
+    		const cookies = new Cookies();
+	    	// Get current user id
+	    	const currentUserId = cookies.get('userId');
+	    	// Find name of user with current id by making request to server
+	    	const response = await fetch("http://localhost:9000/api/v1/user/"+currentUserId,{
+	    		credentials: 'include'
+	    	}); 
+
+	    	if(!response.ok) {
+					return Error(response.statusText);
+			}
+
+			const foundUserParsed = await response.json(); 
+
+			console.log('Parsed found User: ', foundUserParsed);
+	    }
+
+    	catch(err){
+    		console.log(err);
+    	}
+
+    	console.log("Check value: ", check);
+    	return check;
+    }
+    */
 
 
 
@@ -261,7 +317,7 @@ class MainContainer extends Component {
 					<input type='submit' />
 				</form>
 				<p> All existing Posts </p>
-				<PostList allPosts={this.state.posts} getUser={this.getCurrentUser} editPost={this.editPost} canEdit={this.state.editPost} editingPost={this.editingPost} deletePost={this.deletePost} addlike={this.addlike} addComment={this.addComment} canComment={this.state.addComment} currentPostId={this.state.currentPostId} /> 
+				<PostList allPosts={this.state.posts} currentUserName = {this.state.currentUser} editPost={this.editPost} canEdit={this.state.editPost} editingPost={this.editingPost} deletePost={this.deletePost} addlike={this.addlike} addComment={this.addComment} canComment={this.state.addComment} currentPostId={this.state.currentPostId} /> 
 				<Footer/>
 
 			</div>

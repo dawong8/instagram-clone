@@ -6,3 +6,16 @@ span:hover{
 	color: #1e70bf;
 	cursor: pointer;
 }
+
+.postOwner{
+	color: #000000;
+}
+
+.postOwner:hover{
+	color: #000000;
+}
+
+button:hover{
+	cursor: pointer;
+	border-color: #000000;
+}

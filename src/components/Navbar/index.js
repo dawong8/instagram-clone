@@ -28,6 +28,8 @@ const Navbar = (props) =>{
 	       if(responseParsed.data === 'logout successful'){
 	              const cookies = new Cookies();
 	              cookies.remove("userId");
+
+	              console.log("Cookie deleted: ",cookies.get('userId'));
 	       
 	              // Redirect to sign in page
 	              props.history.push('/');
