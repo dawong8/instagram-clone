@@ -84,6 +84,7 @@ const Navbar = (props) =>{
 			<ul>
 				<li> <Link to ='/home'> All Posts </Link></li>
 				<li> <Link to = '/profile/edit'> Edit Profile </Link></li>
+				<li> <Link to = '/followers'> Follow </Link></li>
 				<li> <span onClick={deleteUser}> Delete Profile </span></li>
 				<li> <span onClick={logout}> Logout </span></li>				
 			</ul>

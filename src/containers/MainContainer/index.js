@@ -3,6 +3,7 @@ import PostList from '../../components/ShowAllPost';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
+import Cookies from 'universal-cookie';
 
 const axios = require("axios");
 
@@ -236,6 +237,17 @@ class MainContainer extends Component {
     			return err;
     	}
     }
+
+    getCurrentUser = () =>{
+    	// Currently just prints the id of the current user that is logged in
+    	const cookies = new Cookies();
+    	console.log("Current User: ", cookies.get('userId'));
+    	console.log("Current state: ", this.state);
+
+
+    }
+
+
 
 	render() {
 		console.log('this.state', this.state);
