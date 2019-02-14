@@ -259,10 +259,11 @@ class MainContainer extends Component {
 
 			const foundUserParsed = await response.json(); 
 
-			console.log('Parsed found User: ', foundUserParsed.username);
+			console.log('Parsed found User: ', foundUserParsed);
 
 			this.setState({
-				currentUser: foundUserParsed.username
+				currentUser: foundUserParsed.username,
+				currentUserFollowingArray: foundUserParsed.usersFollowing
 			});
 
 			// console.log("State currentUser: ", this.state.currentUser);
@@ -273,6 +274,55 @@ class MainContainer extends Component {
     	}
     	//console.log("Current state: ", this.state);
     	//console.log("Current Target Owner: ",e.currentTarget.closest('.completePost').querySelector(".postOwner").innerText);
+    }
+
+    savedDataIntoDatabase = async (followingArray) =>{
+
+    	// console.log("Data being saved");
+    	console.log("Following Array: ", followingArray);
+    	const cookies = new Cookies();
+	    // Get current user id
+	    const currentUserId = cookies.get('userId');
+
+
+	    const response = await fetch("http://localhost:9000/api/v1/user/"+currentUserId,{
+	    	credentials: 'include'
+	    });
+
+	    if(!response.ok){
+			return Error(response.statusText);
+		}
+
+		const foundUserParsed = await response.json(); 
+		console.log('Parsed found User IN DATABASE FUNCTION: ', foundUserParsed);
+		// equating the two objects make them reference to each other and changes the value of foundUserParsed
+		// when you change the value of updatedUser
+		const updatedUser = {...foundUserParsed};
+		updatedUser.usersFollowing = followingArray;
+		console.log("UPDATED USER IN DATABASE FUNCTION: ", updatedUser);
+
+
+		// update the databse with the new results
+
+		//throwing error here
+		const modifiedResponse = await fetch('http://localhost:9000/api/v1/user/' + currentUserId, {
+				method: 'PUT',
+				body: JSON.stringify(updatedUser), 
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			if(!response.ok) {
+				return Error(response.statusText);
+			}
+
+			const modifiedParsed = await modifiedResponse.json(); 
+
+			// console.log('MODIFIED RESPONSE PARSED:', modifiedParsed);
+
+
+
     }
 
     followButtonClicked =  (personYouWantToFollow) => {
@@ -292,6 +342,7 @@ class MainContainer extends Component {
 
     		// Save the entry into the database: NEED TO DO THIS
     		console.log("State Array: ", this.state.currentUserFollowingArray);
+    		this.savedDataIntoDatabase(this.state.currentUserFollowingArray);
     	}
     	else
     	{
@@ -312,17 +363,16 @@ class MainContainer extends Component {
 
     	    	// Save the entry into the database: NEED TO DO THIS
     	    	console.log("State Array: ", this.state.currentUserFollowingArray);
+    	    	this.savedDataIntoDatabase(this.state.currentUserFollowingArray);
     	    }
 
     	    else{
     	    	console.log("You already follow this person");
     	    }
     	 }
-    	// The button must change to just show following 
-
+    	
     	// The user that got followed must have no of followers increased by 1 for every new user that followed this person
     }
-
 
     checkUserExistsInArray = (user) =>{
     	let check = false;
