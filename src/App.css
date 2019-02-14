@@ -1,9 +1,23 @@
 @import url('https://fonts.googleapis.com/css?family=Acme%7CGive+You+Glory');
 
-* {
+*:not(.exception):not(.exceptionAgain) {
   font-family: 'Give You Glory', cursive !important;
 /*  background: #8B4513 ;
 */
+}
+
+.exception{
+	/*background-color: white;*/
+	color: #339AF0;
+}
+
+.followUser{
+	background-color: #FFFFFF;
+	border-color: #FFFFFF;
+	/*border: 1px solid #BCBCBC;	*/
+	border-width: 1px;
+	border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+	border-radius: 5px;
 }
 
 .App {

@@ -16,11 +16,11 @@ class Facebook extends Component{
 	}
 
 	componentClicked = () =>{
-		console.log("Facebook Container: Component has been clicked!");
+		// console.log("Facebook Container: Component has been clicked!");
 	}
 
 	responseFacebook = response =>{
-		console.log("Facebook response: ",response);
+		// console.log("Facebook response: ",response);
 		if(this.props.buttonText === 'Login with Facebook')
 			this.props.setStateFacebook(response.name, response.email, response.id, "login");
 		else
@@ -31,7 +31,7 @@ class Facebook extends Component{
 
 	render(){
 		let fbContent;
-		console.log("Props from Facebook Container: ", this.props);
+		// console.log("Props from Facebook Container: ", this.props);
 
 		if(this.state.isLoggedIn){
 			fbContent = null;

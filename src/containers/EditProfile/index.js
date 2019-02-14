@@ -83,6 +83,8 @@ class EditProfile extends Component{
 				throw Error(response.statusText);
 
 			}
+
+			console.log("Edit response: ", response);
 			const parsedReponse = await response.json();
 
 			console.log("Parsed Response handleSubmit received: ", parsedReponse);

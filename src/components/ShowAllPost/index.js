@@ -1,6 +1,7 @@
 import React, {Component} from 'react'; 
 import CommentContainer from '../../containers/CommentContainer';
 import EditPost from '../EditPost';
+// import { Icon } from 'semantic-ui-react';
 
 import Cookies from 'universal-cookie';
 
@@ -8,6 +9,10 @@ import Cookies from 'universal-cookie';
 const PostList = (props) =>{
 
 	const cookie = new Cookies();
+
+	// const currentUser = props.getCurrentUser();
+	// console.log("Current user: ", currentUser);
+	console.log("Props user name: ", props.currentUserName);
 
 
 	const posts = props.allPosts.slice(0).reverse().map((item) => { // each item is a post 
@@ -21,6 +26,8 @@ const PostList = (props) =>{
 						? <span> <button onClick={props.deletePost.bind(null, item._id)}> Delete </button> <button onClick={props.editPost.bind(null, item._id)}> ✏️ </button> </span>
 						: null 
 					}
+
+					{ props.currentUserName !== item.owner ? ( props.checkUserExistsInArray(item.owner) ? <span className="followingComponent"> <i className="exceptionAgain fas fa-check-circle"></i> Following </span>: <button className="followUser" onClick={props.followButtonClicked.bind(this, item.owner)}> <i className=" exception fas fa-user-plus"></i> Follow </button>) : null} 
 					<h1> {item.likes} # of likes </h1>
 					<h2> owner: {item.owner}</h2>
 					<img src={"http://localhost:9000/" + item.picture} /> 

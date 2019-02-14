@@ -6,3 +6,31 @@ span:hover{
 	color: #1e70bf;
 	cursor: pointer;
 }
+
+.postOwner{
+	color: #000000;
+}
+
+.postOwner:hover{
+	color: #000000;
+}
+
+.followingComponent{
+	/*border: 1px solid black;
+	border-radius: 10px;*/
+	border-style: solid;
+	background-color: #4284C4;
+	color: #FFFFFF;
+	border-width: 1px;
+	border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+	border-radius: 5px;
+}
+
+.followingComponent:hover{
+	color: #000000;
+}
+
+button:hover{
+	cursor: pointer;
+	border-color: #000000;
+}
