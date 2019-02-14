@@ -10,52 +10,33 @@ class CommentTier2 extends Component {
 	constructor() {
 		super(); 
 		this.state = {
-			actualComments: [],// the actual comment objs
-			comments: [], // the existing children comments id
+			comments: [], // the existing children comments 
 			parentComment: null // this is your parent comment 
 		}
 	}
 
 	componentWillMount =  () => {
-		this.setup();
+		this.getComments();
+
+
 	}
 
-	componentDidMount() {
-		this.convertId();
-	}
-	setup = () => {
 
-		this.setState({
-			parentComment: {
-				...this.props.currentComment
-			}, 
-			comments: [...this.props.currentComment.children], 
-
-		});
-	}
-
-	convertId = () => {
-		const temp = this.state.comments.map((item) => {
-			return this.getComments(item); //each 'item' is an id, here 
-		});
-		console.log('covert', temp[0])
-
-		this.setState({
-			actualComments: [...temp]
-		});
-	}
-
-	getComments = async (id) => {
+	getComments = async () => {
  		try {
- 			const response = await fetch('http://localhost:9000/api/v1/comment/' + id);
+ 			const response = await fetch('http://localhost:9000/api/v1/comment/' + this.props.currentComment._id);
  			if (!response.ok) {
  				throw Error(response.statusText);
  			}
 
  			const parsedComment = await response.json(); 
 
- 			return parsedComment;
-
+ 			this.setState({
+ 				parentComment: {
+ 					...this.props.currentComment
+ 				}, 
+ 				comments: parsedComment.children
+ 			});
  		} catch (err) {
  			return err; 
  		}
@@ -79,22 +60,19 @@ class CommentTier2 extends Component {
 			const parsedCreatedComment = await response.json(); 
 
 			this.setState({ 
-				comments: [...this.state.comments, parsedCreatedComment._id], 
-				actualComments: [...this.state.actualComments, parsedCreatedComment]
+				comments: [...this.state.comments, parsedCreatedComment], 
 			}); // update state
 
 
 		// After created the new comment, we want to store it in our parent's array 
 
 
-			const temp = [
-				...this.state.parentComment.children, 
-				this.state.comments
-			];
-			console.log('temp', temp);
+			
 			const tempParent = {
-				...this.state.parentComment, 
-				children: temp
+				...this.state.parentComment,
+				children: [
+					...this.state.comments
+				]
 			};
 			console.log('tempParent', tempParent);
 
@@ -127,14 +105,14 @@ class CommentTier2 extends Component {
 
 	render() {
 		console.log('2nd tier', this.state)
-		const embeddedComments = this.state.actualComments.map((item) => {
-			return <li key={item._id}> {item.description} </li>
+		const embeddedComments = this.state.comments.map((item) => {
+			return <li key={item._id}> {item.owner} said : @{this.state.parentComment.owner} {item.description} </li>
 		});
 
 		return (
 			<div> 
 				<ul> {embeddedComments} </ul> 
-				<CreateComment addComment={this.addComment} />
+				{ this.props.clickedComment == this.props.currentComment._id && this.props.clicked ? <CreateComment addComment={this.addComment} /> : null}
 
 			</div>
 			)

@@ -44,6 +44,9 @@ class ParentLoginRegister extends Component{
 		}
 	}
 
+	componentDidMount() {
+		console.log('after ever render?');
+	}
 
 	// Handles the login submit form when the button is clicked
 	handleLoginSubmit = (e) =>{
@@ -177,6 +180,8 @@ class ParentLoginRegister extends Component{
 
 	fetchLogin = async (updatedLogin) =>{
 		try{
+					console.log('here?')
+
 				const response = await fetch('http://localhost:9000/api/v1/auth/login', {
 				method: 'POST',
 				credentials: 'include',
@@ -189,6 +194,7 @@ class ParentLoginRegister extends Component{
 				console.log("Login response: ", response);
 
 				if(!response.ok){
+					console.log('err', response.statusText)
 					throw Error(response.statusText);
 
 				}
@@ -209,6 +215,7 @@ class ParentLoginRegister extends Component{
 					const cookies = new Cookies();
 					console.log("***** ParentLoginRegister *****");
 					console.log("Login username: ", this.state.login.username);
+					console.log("Parsed response: ", parsedReponse);
 					cookies.set('userId', parsedReponse.userId);
 					console.log("Cookie value: ", cookies.get('userId'));
 					this.props.history.push('/home');
@@ -272,7 +279,7 @@ class ParentLoginRegister extends Component{
 	}
 
 	render(){
-		console.log("State from ParentLoginRegister: ", this.state);
+		console.log('render called!');
 		return(
 			<Grid>
 				<Container textAlign='center'>
