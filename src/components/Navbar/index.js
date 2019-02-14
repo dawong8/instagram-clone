@@ -76,29 +76,40 @@ const Navbar = (props) =>{
 		}
 	}
 
+	const home = () =>{
+		props.history.push('/home');
+	}
+
+	const editProfile =() =>{
+		props.history.push('/profile/edit');
+	}
+
+	const followerPost = () =>{
+		props.history.push('/followers');
+	}
 
 
 	return(
 
 		<header className='navbar'>
-			<div className='navbar-segment'>
-				<Link to ='/home'> All Posts </Link>
+			<div className='navbar-segment' onClick={followerPost}>
+				 <i className="exception hover fas fa-camera-retro"></i>	
 			</div>
 
-			<div className='navbar-segment'>
-				 <Link to = '/profile/edit'> Edit Profile </Link>	
+			<div className='navbar-segment' onClick={editProfile}>
+				 <i className="exception hover fas fa-user-edit"></i> 	
 			</div>
 
-			<div className='navbar-segment'>
-				 <Link to = '/followers'> Following Posts </Link>	
+			<div className='navbar-segment' onClick={home}>
+				<i className="exception hover fas fa-search"></i>
 			</div>
 
 			<div className='navbar-segment' onClick={deleteUser}>
-				 <span> Delete Profile </span>
+				 <span> <i className="exception hover fas fa-trash-alt"></i> </span>
 			</div>
 
 			<div className='navbar-segment' onClick={logout}>
-				 <span> Logout </span> 
+				 <span> <i className="exception hover fas fa-sign-out-alt"></i> </span> 
 			</div>				
 		</header>
 	);
