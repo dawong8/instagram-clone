@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import ParentLoginRegister from '../../containers/ParentLoginRegister';
-import MainContainer from '../../containers/MainContainer';
+import MainPage from '../../containers/MainPage';
 import ProfileContainer from '../../containers/ProfileContainer';
 import EditProfile from '../../containers/EditProfile';
 import Followers from '../../containers/Followers';
@@ -16,8 +16,8 @@ import { Route, Switch } from 'react-router-dom';
 const AllRoutes = () => {
 	return (
 		<Switch>
-      		<Route exact path = '/' component= { ParentLoginRegister } />
-          	<Route exact path = '/home' component={MainContainer} />
+      		<Route exact path = '/' component= {ParentLoginRegister  } />
+          	<Route exact path = '/home' component={MainPage} />
           	<Route exact path = '/profile' component= { ProfileContainer } />
           	<Route exact path = '/profile/edit' component = { EditProfile} />
           	<Route exact path = '/followers' component = { Followers } />

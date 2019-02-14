@@ -1,14 +1,18 @@
 import React, {Component} from 'react'; 
 import PostList from '../../components/ShowAllPost';
+<<<<<<< HEAD
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
 import Cookies from 'universal-cookie';
+=======
+
+>>>>>>> master
 
 const axios = require("axios");
 
 
-class MainContainer extends Component {
+class MainContainer extends Component {     // this is technically post container for all posts 
 	constructor() {
 		super(); 
 		this.state = {
@@ -25,11 +29,11 @@ class MainContainer extends Component {
 			editPost: false, 
 			currentPostId: '',
 			currentUser: '',
-			currentUserFollowingArray: []
-
+			currentUserFollowingArray: [],
+			liked: false
 		}
 		//this.onFormSubmit = this.onFormSubmit.bind(this);
-        this.onChange = this.onChange.bind(this);
+        //this.onChange = this.onChange.bind(this);
 	}
 
 	componentDidMount () {
@@ -50,11 +54,10 @@ class MainContainer extends Component {
 				throw Error(response.statusText);
 			}
 			const postParsed = await response.json(); 
-			console.log("getAllPosts parsed posts: ", postParsed);
 
 			this.setState({
 				
-				posts: postParsed
+				posts: postParsed,
 				
 			});
 
@@ -105,7 +108,7 @@ class MainContainer extends Component {
 				}
         }); 
     }
-    onChange(e) {
+    onChange = (e) => {
         this.setState({
         	myPost : {
         		...this.state.myPost, 
@@ -126,6 +129,8 @@ class MainContainer extends Component {
 
 
     deletePost = async (id) => {
+
+
     	try {
     		
     		const response = await fetch('http://localhost:9000/api/v1/post/' + id, {
@@ -147,14 +152,29 @@ class MainContainer extends Component {
     	}
     }
 
-    addlike = async (post) => {
+    addlike = async (post, remove, userId) => { // remove arg, true: add like, false: remove like
     	try {
-    		console.log('sent over post', post);
-    		const temp = {
-    			...post, 
-    			likes: post.likes + 1
+    		
+    		let temp = null; 
+    		if (remove) {
+    			temp = {
+	    			...post, 
+	    			likes: post.likes + 1, 
+	    			whoLiked: [...post.whoLiked, userId]
+    			}
+
+
+    		} else {
+
+    			temp = {
+	    			...post, 
+	    			likes: post.likes - 1, 
+	    			whoLiked: post.whoLiked.filter( item => item !== userId)
+    			}
     		}
-    		console.log('added like', temp);
+
+    		console.log('temp is ', temp);
+
     		const response = await fetch('http://localhost:9000/api/v1/post/' + post._id, {
 				method: 'PUT',
 				body: JSON.stringify(temp), 
@@ -181,10 +201,21 @@ class MainContainer extends Component {
 				});
 
 
-			this.setState({
-				posts: tempArray
-			});
 
+
+			if (post._id == this.state.currentPostId) { // same key pressed for the same post 
+				this.setState({
+					posts: tempArray, 
+					liked: !this.state.liked, 
+					currentPostId: post._id
+				})
+			} else { //if a different one is pressed 
+				this.setState({
+					posts: tempArray, 
+					liked: true, 
+					currentPostId: post._id
+				})
+			}
 
     	} catch (err) {
     		return err; 
@@ -192,16 +223,36 @@ class MainContainer extends Component {
     }
 
     addComment = (id) => {
-    	this.setState({
-    		addComment: !this.state.addComment,
-    		currentPostId: id
-    	});
+
+
+		if (id == this.state.currentPostId) { // same key pressed for the same post 
+			this.setState({
+				addComment: !this.state.addComment, 
+				currentPostId: id
+			})
+		} else { //if a different one is pressed 
+			this.setState({
+				addComment: true, 
+				currentPostId: id
+			})
+		}
+
     }
     editPost = (id) => {
-    	this.setState({
-    		editPost: !this.state.editPost, 
-    		currentPostId: id
-    	})
+
+		if (id == this.state.currentPostId) { // same key pressed for the same post 
+			this.setState({
+				editPost: !this.state.editPost, 
+				currentPostId: id
+			})
+		} else { //if a different one is pressed 
+			this.setState({
+				editPost: true, 
+				currentPostId: id
+			})
+		}
+
+
     }
 
     editingPost = async (post) => {
@@ -219,9 +270,6 @@ class MainContainer extends Component {
 			}
 
 			const editParsed = await response.json(); 
-
-			console.log('edited parsed', editParsed);
-
 
 			const tempArray = this.state.posts.map((item) => {
 					if (item._id === post._id) {
@@ -391,16 +439,19 @@ class MainContainer extends Component {
 		console.log('this.state', this.state);
 		return ( 
 			<div> 
-				<Header/>
-				<Navbar/>
 				<form onSubmit={this.onFormSubmit} ref="createPostForm" >
 					<input type='file' name="myImage" onChange={this.onChange}/>
 					<input type='text' name='description' onChange={this.handleInput} value={this.state.description}/>
 					<input type='submit' />
 				</form>
 				<p> All existing Posts </p>
+<<<<<<< HEAD
 				<PostList allPosts={this.state.posts} checkUserExistsInArray={this.checkUserExistsInArray} followButtonClicked={this.followButtonClicked} currentUserName={this.state.currentUser} editPost={this.editPost} canEdit={this.state.editPost} editingPost={this.editingPost} deletePost={this.deletePost} addlike={this.addlike} addComment={this.addComment} canComment={this.state.addComment} currentPostId={this.state.currentPostId} /> 
 				<Footer/>
+=======
+				<PostList postLiked={this.state.liked} allPosts={this.state.posts} getUser={this.getCurrentUser} editPost={this.editPost} canEdit={this.state.editPost} editingPost={this.editingPost} deletePost={this.deletePost} addlike={this.addlike} addComment={this.addComment} canComment={this.state.addComment} currentPostId={this.state.currentPostId} /> 
+				
+>>>>>>> master
 
 			</div>
 			)

@@ -140,10 +140,19 @@ class CommentContainer extends Component {
 	}
 
 	canEdit = (id) => {
-		this.setState({
-			canEdit: !this.state.canEdit,
-			commentId: id
-		})
+
+		if (id == this.state.commentId) { // same key pressed for the same comment 
+			this.setState({
+				canEdit: !this.state.canEdit, 
+				commentId: id
+			})
+		} else { //if a different one is pressed 
+			this.setState({
+				canEdit: true, 
+				commentId: id
+			})
+		}
+
 	}
 	
 	replyHit = (id) => {
@@ -167,7 +176,7 @@ class CommentContainer extends Component {
 		console.log('state at comment container', this.state.comments);
 		return (
 			<div>
-				<CommentList allComments={this.state.comments} addlike={this.addlike} editComment={this.editComment} canEdit={this.canEdit} showForm={this.state.canEdit} commentId={this.state.commentId} replyHit={this.replyHit} moreComments={this.state.replyHit}/> 
+				<CommentList userId={this.props.userId} allComments={this.state.comments} addlike={this.addlike} editComment={this.editComment} canEdit={this.canEdit} showForm={this.state.canEdit} commentId={this.state.commentId} replyHit={this.replyHit} moreComments={this.state.replyHit}/> 
 				{ this.props.canComment && this.props.currentPostId == this.props.thePost ? <CreateComment addComment={this.addComment} post={this.props.thePost} /> : null}
 				
 			</div>

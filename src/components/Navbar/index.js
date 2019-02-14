@@ -29,8 +29,6 @@ const Navbar = (props) =>{
 	              const cookies = new Cookies();
 	              cookies.remove("userId");
 
-	              console.log("Cookie deleted: ",cookies.get('userId'));
-	       
 	              // Redirect to sign in page
 	              props.history.push('/');
 	            }
@@ -88,7 +86,7 @@ const Navbar = (props) =>{
 				<li> <Link to = '/profile/edit'> Edit Profile </Link></li>
 				<li> <Link to = '/followers'> Following Posts </Link></li>
 				<li> <span onClick={deleteUser}> Delete Profile </span></li>
-				<li> <span onClick={logout}> Logout </span></li>				
+				<li> <span onClick={logout}> Logout </span> </li>				
 			</ul>
 		</header>
 	);
