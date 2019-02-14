@@ -3,6 +3,7 @@ import CommentContainer from '../../containers/CommentContainer';
 import EditPost from '../EditPost';
 // import { Icon } from 'semantic-ui-react';
 
+
 const PostList = (props) =>{
 
 	// const currentUser = props.getCurrentUser();
@@ -15,7 +16,7 @@ const PostList = (props) =>{
 					<button onClick={props.addlike.bind(null, item)}> ❤ </button> 
 					<button onClick={props.addComment.bind(null, item._id)}> 💬 </button> 
 					<button onClick={props.editPost.bind(null, item._id)}> ✏️ </button>
-					{ props.currentUserName !== item.owner ? <button className="followUser"> <i className=" exception fas fa-user-plus"></i> Follow </button> : null} 
+					{ props.currentUserName !== item.owner ? ( props.checkUserExistsInArray(item.owner) ? <span> User already following </span>: <button className="followUser" onClick={props.followButtonClicked.bind(this, item.owner)}> <i className=" exception fas fa-user-plus"></i> Follow </button>) : null} 
 
 					<h1> {item.likes} likes </h1>
 					<h2> owner: <span className="postOwner">{item.owner}</span></h2>
