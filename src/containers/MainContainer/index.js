@@ -1,13 +1,9 @@
 import React, {Component} from 'react'; 
 import PostList from '../../components/ShowAllPost';
-<<<<<<< HEAD
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
 import Cookies from 'universal-cookie';
-=======
-
->>>>>>> master
 
 const axios = require("axios");
 
@@ -445,13 +441,9 @@ class MainContainer extends Component {     // this is technically post containe
 					<input type='submit' />
 				</form>
 				<p> All existing Posts </p>
-<<<<<<< HEAD
-				<PostList allPosts={this.state.posts} checkUserExistsInArray={this.checkUserExistsInArray} followButtonClicked={this.followButtonClicked} currentUserName={this.state.currentUser} editPost={this.editPost} canEdit={this.state.editPost} editingPost={this.editingPost} deletePost={this.deletePost} addlike={this.addlike} addComment={this.addComment} canComment={this.state.addComment} currentPostId={this.state.currentPostId} /> 
+				<PostList postLiked={this.state.liked} getUser={this.getCurrentUser} allPosts={this.state.posts} checkUserExistsInArray={this.checkUserExistsInArray} followButtonClicked={this.followButtonClicked} currentUserName={this.state.currentUser} editPost={this.editPost} canEdit={this.state.editPost} editingPost={this.editingPost} deletePost={this.deletePost} addlike={this.addlike} addComment={this.addComment} canComment={this.state.addComment} currentPostId={this.state.currentPostId} /> 
 				<Footer/>
-=======
-				<PostList postLiked={this.state.liked} allPosts={this.state.posts} getUser={this.getCurrentUser} editPost={this.editPost} canEdit={this.state.editPost} editingPost={this.editingPost} deletePost={this.deletePost} addlike={this.addlike} addComment={this.addComment} canComment={this.state.addComment} currentPostId={this.state.currentPostId} /> 
-				
->>>>>>> master
+
 
 			</div>
 			)
