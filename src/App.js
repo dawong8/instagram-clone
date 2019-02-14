@@ -3,8 +3,6 @@ import { Redirect } from 'react-router-dom';
 // import logo from './logo.svg';
 import './App.css';
 import AllRoutes from './components/Routes';
-import ParentLoginRegister from './containers/ParentLoginRegister';
-
 import Cookies from 'universal-cookie';
 
 

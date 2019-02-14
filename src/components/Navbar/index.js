@@ -80,14 +80,26 @@ const Navbar = (props) =>{
 
 	return(
 
-		<header>
-			<ul>
-				<li> <Link to ='/home'> All Posts </Link></li>
-				<li> <Link to = '/profile/edit'> Edit Profile </Link></li>
-				<li> <Link to = '/followers'> Following Posts </Link></li>
-				<li> <span onClick={deleteUser}> Delete Profile </span></li>
-				<li> <span onClick={logout}> Logout </span> </li>				
-			</ul>
+		<header className='navbar'>
+			<div className='navbar-segment'>
+				<Link to ='/home'> All Posts </Link>
+			</div>
+
+			<div className='navbar-segment'>
+				 <Link to = '/profile/edit'> Edit Profile </Link>	
+			</div>
+
+			<div className='navbar-segment'>
+				 <Link to = '/followers'> Following Posts </Link>	
+			</div>
+
+			<div className='navbar-segment' onClick={deleteUser}>
+				 <span> Delete Profile </span>
+			</div>
+
+			<div className='navbar-segment' onClick={logout}>
+				 <span> Logout </span> 
+			</div>				
 		</header>
 	);
 }

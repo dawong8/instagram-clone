@@ -112,7 +112,7 @@ class CommentTier2 extends Component {
 		return (
 			<div> 
 				<ul> {embeddedComments} </ul> 
-				{ this.props.clickedComment == this.props.currentComment._id && this.props.clicked ? <CreateComment addComment={this.addComment} /> : null}
+				{ this.props.clickedComment === this.props.currentComment._id && this.props.clicked ? <CreateComment addComment={this.addComment} /> : null}
 
 			</div>
 			)

@@ -34,3 +34,31 @@ button:hover{
 	cursor: pointer;
 	border-color: #000000;
 }
+
+.navbar{
+	display: flex;
+	justify-content: space-around;
+	border: 1px solid #F2F2F2;
+	width: 90%;
+	margin: 0 auto;
+	box-shadow: 2px 2px 2px 2px grey;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.navbar-segment{
+	width: 100%;
+	text-align: center;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	border: 1px solid #F2F2F2;
+}
+
+.navbar-segment:hover{
+	background: #000000;
+	color: #FFFFFF;
+}
+
+.divider-span{
+	height: 100%;
+}
