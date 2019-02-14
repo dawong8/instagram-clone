@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Acme%7CGive+You+Glory');
 
-*:not(.exception) {
+*:not(.exception):not(.exceptionAgain) {
   font-family: 'Give You Glory', cursive !important;
 /*  background: #8B4513 ;
 */
