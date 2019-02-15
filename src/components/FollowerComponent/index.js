@@ -25,7 +25,7 @@ const FollowerComponent = (props) =>{
 		return (
 			<Card key={item._id}>
 				<Card.Content>
-					<Image className="image card-image" src={"http://localhost:9000/"+item.picture} alt="Post picture"/>
+					<Image className="image card-image" src={`${process.env.REACT_APP_API}/`+item.picture} alt="Post picture"/>
 					<Card.Header> {item.description} </Card.Header>
 					<Card.Header> <i className="exception fas fa-user"></i> {item.owner} </Card.Header>
 					{ (props.getComment(item._id).length !== 0 ) ? <GenerateComments item={item} getComment={props.getComment} itemId={item._id}/> : null}
