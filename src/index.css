@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:700i');
 
 
 body {
@@ -12,18 +11,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
 
 .containerWidth{
 	width: 75%;  
 }
 
 .loginContainer{
-  width: 85%;
-  margin: 80px 50px 20px 50px;
+  width: 75%;
+  margin: 150px auto;
+  background: white;
+  padding: 50px;
+  border-radius: 45px;
+  opacity: .9;
+}
+
+.loginContainer:hover {
+  opacity: 1;
 }
 
 .registerContainer{

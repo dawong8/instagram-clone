@@ -1,0 +1,25 @@
+.main {
+	width: 50%;
+	margin: 0 25%;
+
+}
+
+.card-image {
+	width: 100%;
+	height: auto;
+}
+
+
+.ui.card {
+	width: 100%;
+}
+
+
+#like {
+	background: pink;
+	color: white;
+}
+#unlike {
+	background: #3499EF; 
+	color: white;
+}
