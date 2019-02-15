@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie';
-import { Message } from 'semantic-ui-react' 
-
 import ErrorMessage from '../../components/ErrorMessage';
 import EditProfileComponent from '../../components/EditProfileComponent';
 import Header from '../../components/Header';
