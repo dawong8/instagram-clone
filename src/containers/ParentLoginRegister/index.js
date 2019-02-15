@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Divider, Container, Image, Grid } from 'semantic-ui-react';
+import Header from '../../components/Header';
 
 import Cookies from 'universal-cookie';
 import Login from '../../components/Login';
@@ -7,18 +8,9 @@ import Register from '../../components/Register';
 import ErrorMessage from '../../components/ErrorMessage';
 import Facebook from '../Facebook';
 
+import './parent.css';
 
-// Inline styling
-const styles = {
-	textFont: {
-		fontSize: '70px',
-		margintop: '30px'
-	},
-	dividerWidth:{
-		marginTop: '8%',
-		marginLeft: '4%'
-	}
-}
+
 
 
 class ParentLoginRegister extends Component{
@@ -40,7 +32,8 @@ class ParentLoginRegister extends Component{
 				email: '',
 				successful: false,
 				errorMsg: ''
-			}
+			}, 
+			loginButton: false 
 		}
 	}
 
@@ -278,36 +271,55 @@ class ParentLoginRegister extends Component{
 		}
 	}
 
+	buttonChange = (e) => {
+		e.preventDefault(); 
+		this.setState({
+			loginButton: !this.state.loginButton
+		});
+	}
+
 	render(){
-		console.log('render called!');
 		return(
-			<Grid>
-				<Container textAlign='center'>
-					<h1 style={styles.textFont}> Flutter </h1>
-				</Container>
+			<div>
 
-				<Grid.Row columns={2}>
-					<Grid.Column verticalAlign='middle'>
-						<Image className='imageContainer' size="huge" src="https://images.pexels.com/photos/1338789/pexels-photo-1338789.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"/>
-					</Grid.Column>
+				<video id="video" autoPlay loop playsInline preload="yes"> 
+					<source src={'/Beach-Camera.mp4'} /> Your browser does not support this video.
+				</video> 
 
-					<Grid.Column>
-						<Grid.Row className='loginContainer'>
-							<Login handleLoginChange={this.handleLoginChange} handleLoginSubmit={this.handleLoginSubmit}/>
-							{this.state.login.errorMsg !== '' ? <ErrorMessage errorMessage={this.state.login.errorMsg}/> : null}
-							<Facebook setStateFacebook={this.setStateFacebook} buttonText={"Login with Facebook"}/>
-							<Divider style={styles.dividerWidth}/>
+				<Grid>
+					
+					<Grid.Row columns={3}>
+						
+						<Grid.Column>
 
-						</Grid.Row>
+							<Grid.Row className='loginContainer'>
+								<Header />
 
-						<Grid.Row className='registerContainer'>
-							<Register handleRegisterChange={this.handleRegisterChange} handleRegisterSubmit={this.handleRegisterSubmit} />
-							{this.state.register.errorMsg !== '' ? <ErrorMessage errorMessage={this.state.register.errorMsg}/> : null}
-							<Facebook setStateFacebook={this.setStateFacebook} buttonText={"SignUp with Facebook"}/>
-						</Grid.Row>
-					</Grid.Column>
-				</Grid.Row>
-			</Grid>
+								
+
+							
+							{ this.state.loginButton ? <span>   
+								<Register handleRegisterChange={this.handleRegisterChange} handleRegisterSubmit={this.handleRegisterSubmit} />
+								{this.state.register.errorMsg !== '' ? <ErrorMessage errorMessage={this.state.register.errorMsg}/> : null}
+								<Facebook setStateFacebook={this.setStateFacebook} buttonText={"SignUp with Facebook"}/>
+								<button onClick={this.buttonChange}>Have an account? </button>
+							 </span> : 
+							<span> 
+								<Login handleLoginChange={this.handleLoginChange} handleLoginSubmit={this.handleLoginSubmit}/>
+								{this.state.login.errorMsg !== '' ? <ErrorMessage errorMessage={this.state.login.errorMsg}/> : null}
+								<Facebook setStateFacebook={this.setStateFacebook} buttonText={"Login with Facebook"}/>
+								<button onClick={this.buttonChange}>New? </button> 
+
+								</span>
+
+
+
+							 }
+							 </Grid.Row>
+						</Grid.Column>
+					</Grid.Row>
+				</Grid>
+			</div>
 		);
 	}
 }
