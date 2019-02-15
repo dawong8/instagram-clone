@@ -21,7 +21,7 @@ const PostList = (props) =>{
         return (
                 typeof item === 'undefined' ? null : // may not need?
                 <Card className="card" key={item._id}> 
-                    <Image className="image card-image" src={`${process.env.REACT_APP_API}` + item.picture} /> 
+                    <Image className="image card-image" src={`${process.env.REACT_APP_API}/` + item.picture} /> 
                     <Card.Content>
                         <Card.Header> <h2> <Link to={"/profile/" +  item.userId} >{item.owner}</Link> </h2> 
                             { props.currentUserName !== item.owner ? ( props.checkUserExistsInArray(item.owner) ? <span className="followingComponent"> <i className="exceptionAgain fas fa-check-circle"></i> Following </span>: <button className="followUser" onClick={props.followButtonClicked.bind(this, item.owner)}> <i className=" exception fas fa-user-plus"></i> Follow </button>) : null} 
