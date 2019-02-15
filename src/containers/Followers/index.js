@@ -115,7 +115,7 @@ class Followers extends Component{
 						if (!response.ok) {
 							throw Error(response.statusText);
 						}
-						else{
+						// else{
 							const commentParsed = await response.json(); 
 							console.log("Comments parsed from getComment: ", commentParsed);
 							// As long as there are comments in the following posts, display them
@@ -124,7 +124,7 @@ class Followers extends Component{
 
 							return commentParsed;
 							// }
-						}
+						// }
 					}
 
 
