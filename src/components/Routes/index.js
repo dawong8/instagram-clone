@@ -20,7 +20,6 @@ const AllRoutes = () => {
       		<Route exact path = '/' component= {ParentLoginRegister  } />
           	<Route exact path = '/home' component={MainPage} />
             <Route exact path = '/profile/edit' component = { EditProfile} />
-
           	<Route path = '/profile/:handle' component= { ProfileContainer } />
           	<Route exact path = '/followers' component = { Followers } />
       		<Route component= { My404 } />
