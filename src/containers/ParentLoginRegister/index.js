@@ -32,7 +32,8 @@ class ParentLoginRegister extends Component{
 				email: '',
 				successful: false,
 				errorMsg: ''
-			}
+			}, 
+			loginButton: false 
 		}
 	}
 
@@ -270,6 +271,13 @@ class ParentLoginRegister extends Component{
 		}
 	}
 
+	buttonChange = (e) => {
+		e.preventDefault(); 
+		this.setState({
+			loginButton: !this.state.loginButton
+		});
+	}
+
 	render(){
 		return(
 			<div>
@@ -287,17 +295,27 @@ class ParentLoginRegister extends Component{
 							<Grid.Row className='loginContainer'>
 								<Header />
 
-								<Login handleLoginChange={this.handleLoginChange} handleLoginSubmit={this.handleLoginSubmit}/>
-								{this.state.login.errorMsg !== '' ? <ErrorMessage errorMessage={this.state.login.errorMsg}/> : null}
-								<Facebook setStateFacebook={this.setStateFacebook} buttonText={"Login with Facebook"}/>
+								
 
-							</Grid.Row>
-
-							{ false ? <Grid.Row className='registerContainer'>
+							
+							{ this.state.loginButton ? <span>   
 								<Register handleRegisterChange={this.handleRegisterChange} handleRegisterSubmit={this.handleRegisterSubmit} />
 								{this.state.register.errorMsg !== '' ? <ErrorMessage errorMessage={this.state.register.errorMsg}/> : null}
 								<Facebook setStateFacebook={this.setStateFacebook} buttonText={"SignUp with Facebook"}/>
-							</Grid.Row> : null }
+								<button onClick={this.buttonChange}>Have an account? </button>
+							 </span> : 
+							<span> 
+								<Login handleLoginChange={this.handleLoginChange} handleLoginSubmit={this.handleLoginSubmit}/>
+								{this.state.login.errorMsg !== '' ? <ErrorMessage errorMessage={this.state.login.errorMsg}/> : null}
+								<Facebook setStateFacebook={this.setStateFacebook} buttonText={"Login with Facebook"}/>
+								<button onClick={this.buttonChange}>New? </button> 
+
+								</span>
+
+
+
+							 }
+							 </Grid.Row>
 						</Grid.Column>
 					</Grid.Row>
 				</Grid>

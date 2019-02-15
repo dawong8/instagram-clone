@@ -20,7 +20,7 @@ class App extends Component {
   render() {
     const cookies = new Cookies();
     const cookie = cookies.get('userId');
-      console.log('MY COOKIE', cookie)
+      //console.log('MY COOKIE', cookie)
 
     return (
       <main>

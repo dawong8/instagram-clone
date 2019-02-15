@@ -1,0 +1,15 @@
+.profile-posts {
+	height: 300px;
+	width: 300px;
+	margin: 5px;
+	border: 1px solid #F2F2F2;
+}
+
+.flex {
+	display: flex; 
+	flex-direction: row; 
+	flex-wrap: wrap;
+
+	width: 75%;
+	margin-left: 25%;
+}

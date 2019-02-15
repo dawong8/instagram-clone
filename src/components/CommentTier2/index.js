@@ -106,12 +106,12 @@ class CommentTier2 extends Component {
 	render() {
 		console.log('2nd tier', this.state)
 		const embeddedComments = this.state.comments.map((item) => {
-			return <li key={item._id}> {item.owner} said : @{this.state.parentComment.owner} {item.description} </li>
+			return <div key={item._id}> {item.owner} said : @{this.state.parentComment.owner} {item.description} </div>
 		});
 
 		return (
 			<div> 
-				<ul> {embeddedComments} </ul> 
+				<div> {embeddedComments} </div> 
 				{ this.props.clickedComment === this.props.currentComment._id && this.props.clicked ? <CreateComment addComment={this.addComment} /> : null}
 
 			</div>

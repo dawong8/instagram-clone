@@ -6,4 +6,9 @@
 	font-size: 75px;
 	font-family: 'Pacifico', cursive;
 	letter-spacing: 3px;
+	color: black;
+}
+
+.header:hover {
+	color: pink;
 }

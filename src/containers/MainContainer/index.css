@@ -1,0 +1,19 @@
+.create-post {
+	width: 50%;
+	margin: 50px auto;
+	text-align: center;
+	border: 0.5px #D4D4D5 solid;
+	border-radius: 10px;
+	padding: 2%;
+}
+
+#submit {
+	border-radius: 45px; 
+	padding: 1%;
+	margin-top: 10px;
+	background: none;
+}
+
+#submit:hover {
+	background: pink;
+}

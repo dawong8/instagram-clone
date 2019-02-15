@@ -13,3 +13,13 @@
 .ui.card {
 	width: 100%;
 }
+
+
+#like {
+	background: pink;
+	color: white;
+}
+#unlike {
+	background: #3499EF; 
+	color: white;
+}

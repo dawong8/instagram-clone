@@ -5,6 +5,19 @@
 	font-family: 'Pontano Sans', sans-serif !important;
 }
 
+
+
+button {
+	border-radius: 45px; 
+	padding: 1%;
+	margin-top: 10px;
+	background: none;
+}
+
+/*button:hover {
+	background: pink;
+}*/
+
 .main {
 
 }
