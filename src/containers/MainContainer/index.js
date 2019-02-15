@@ -33,7 +33,7 @@ class MainContainer extends Component {     // this is technically post containe
     
     getPost = async (arg) => {
         try {
-            const response = await fetch('http://localhost:9000/api/v1/post', {
+            const response = await fetch(`${process.env.REACT_APP_API}/api/v1/post`, {
                 credentials: 'include'
             });
             if (!response.ok) {
@@ -61,7 +61,7 @@ class MainContainer extends Component {     // this is technically post containe
             }
         };
         let tempObj;
-        const res = await axios.post("http://localhost:9000/api/v1/post", formData ,config)
+        const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/post`, formData ,config)
             .then(  (response) => {
                 // do nothing 
                 //parsedJson = response.json();
@@ -100,7 +100,7 @@ class MainContainer extends Component {     // this is technically post containe
     deletePost = async (id) => {
         try {
             
-            const response = await fetch('http://localhost:9000/api/v1/post/' + id, {
+            const response = await fetch(`${process.env.REACT_APP_API}/api/v1/post/` + id, {
                 method: 'DELETE'
             });
             if (!response.ok) {
@@ -132,7 +132,7 @@ class MainContainer extends Component {     // this is technically post containe
                 }
             }
             console.log('temp is ', temp);
-            const response = await fetch('http://localhost:9000/api/v1/post/' + post._id, {
+            const response = await fetch(`${process.env.REACT_APP_API}/api/v1/post/` + post._id, {
                 method: 'PUT',
                 body: JSON.stringify(temp), 
                 headers: {
@@ -196,7 +196,7 @@ class MainContainer extends Component {     // this is technically post containe
     }
     editingPost = async (post) => {
         try {
-            const response = await fetch('http://localhost:9000/api/v1/post/' + post._id, {
+            const response = await fetch(`${process.env.REACT_APP_API}/api/v1/post/` + post._id, {
                 method: 'PUT',
                 body: JSON.stringify(post), 
                 headers: {
@@ -228,7 +228,7 @@ class MainContainer extends Component {     // this is technically post containe
             // Get current user id
             const currentUserId = cookies.get('userId');
             // Find name of user with current id by making request to server
-            const response = await fetch("http://localhost:9000/api/v1/user/"+currentUserId,{
+            const response = await fetch(`${process.env.REACT_APP_API}/api/v1/user/`+currentUserId,{
                 credentials: 'include'
             }); 
             if(!response.ok) {
@@ -254,7 +254,7 @@ class MainContainer extends Component {     // this is technically post containe
         const cookies = new Cookies();
         // Get current user id
         const currentUserId = cookies.get('userId');
-        const response = await fetch("http://localhost:9000/api/v1/user/"+currentUserId,{
+        const response = await fetch(`${process.env.REACT_APP_API}/api/v1/user/`+currentUserId,{
             credentials: 'include'
         });
         if(!response.ok){
@@ -269,7 +269,7 @@ class MainContainer extends Component {     // this is technically post containe
         console.log("UPDATED USER IN DATABASE FUNCTION: ", updatedUser);
         // update the databse with the new results
         //throwing error here
-        const modifiedResponse = await fetch('http://localhost:9000/api/v1/user/' + currentUserId, {
+        const modifiedResponse = await fetch(`${process.env.REACT_APP_API}/api/v1/user/` + currentUserId, {
                 method: 'PUT',
                 body: JSON.stringify(updatedUser), 
                 headers: {

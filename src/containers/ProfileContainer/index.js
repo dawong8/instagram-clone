@@ -30,7 +30,7 @@ class ProfileContainer extends Component {
 	getUser = async () => {
 		try {
 
-			const response = await fetch("http://localhost:9000/api/v1/user/"+this.props.match.params.handle,{
+			const response = await fetch(`${process.env.REACT_APP_API}/api/v1/user/`+this.props.match.params.handle,{
 	            credentials: 'include'
 	        });
 	        if(!response.ok){
@@ -57,7 +57,7 @@ class ProfileContainer extends Component {
 	getPosts = async () => {
 		try {
 
-			const response = await fetch("http://localhost:9000/api/v1/user/"+this.props.match.params.handle+"/posts",{
+			const response = await fetch(`${process.env.REACT_APP_API}/api/v1/user/`+this.props.match.params.handle+"/posts",{
 	            credentials: 'include'
 	        });
 			if(!response.ok){

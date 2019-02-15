@@ -20,7 +20,7 @@ class CommentContainer extends Component {
 
  	getComments = async () => {
  		try {
- 			const response = await fetch('http://localhost:9000/api/v1/comment/post/' + this.props.thePost);
+ 			const response = await fetch(`${process.env.REACT_APP_API}/api/v1/comment/post/` + this.props.thePost);
  			if (!response.ok) {
  				throw Error(response.statusText);
  			}
@@ -40,7 +40,7 @@ class CommentContainer extends Component {
 
 	addComment = async (arg) => {
 		try {
-			const response = await fetch('http://localhost:9000/api/v1/comment', {
+			const response = await fetch(`${process.env.REACT_APP_API}/api/v1/comment`, {
 				method: 'POST', 
 				body: JSON.stringify(arg),
 				credentials: 'include',
@@ -72,7 +72,7 @@ class CommentContainer extends Component {
 				...comment, 
 				likes: comment.likes + 1
 			};
-			const response = await fetch('http://localhost:9000/api/v1/comment/' + comment._id, {
+			const response = await fetch(`${process.env.REACT_APP_API}/api/v1/comment/` + comment._id, {
 				method: 'PUT',
 				body: JSON.stringify(temp), 
 				headers: {
@@ -110,7 +110,7 @@ class CommentContainer extends Component {
 	editComment = async (comment) => {
 		try {
 			console.log('sent over commet', comment)
-			const response = await fetch('http://localhost:9000/api/v1/comment/' + comment._id, {
+			const response = await fetch(`${process.env.REACT_APP_API}/api/v1/comment/` + comment._id, {
 				method: 'PUT',
 				body: JSON.stringify(comment), 
 				headers: {

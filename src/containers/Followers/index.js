@@ -23,7 +23,7 @@ class Followers extends Component{
 		console.log("User id from getCurrentUser: ", userId);
 		try {
 
-			const response = await fetch('http://localhost:9000/api/v1/user/'+userId, {
+			const response = await fetch(`${process.env.REACT_APP_API}/api/v1/user/`+userId, {
 				credentials: 'include'
 
 			});
@@ -76,7 +76,7 @@ class Followers extends Component{
 	getPostAndComment = async () => {
 		try {
 
-			const response = await fetch('http://localhost:9000/api/v1/post', {
+			const response = await fetch(`${process.env.REACT_APP_API}/api/v1/post`, {
 				credentials: 'include'
 
 			});
@@ -106,7 +106,7 @@ class Followers extends Component{
 			const commentsFollowedPosts = [];
 
 			for(let i=0; i<followedPosts.length; i++){
-				const response = await fetch('http://localhost:9000/api/v1/comment/post/' + postId, {
+				const response = await fetch(`${process.env.REACT_APP_API}/api/v1/comment/post/` + postId, {
 							credentials: 'include'
 			
 						});
