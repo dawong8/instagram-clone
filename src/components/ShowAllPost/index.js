@@ -4,7 +4,8 @@ import EditPost from '../EditPost';
 // import { Icon } from 'semantic-ui-react';
 
 import Cookies from 'universal-cookie';
-
+import { Card, Icon, Image, Button, Grid } from 'semantic-ui-react'
+import './index.css';
 
 const PostList = (props) =>{
 
@@ -16,33 +17,47 @@ const PostList = (props) =>{
 
 
 	const posts = props.allPosts.slice(0).reverse().map((item) => { // each item is a post 
-		return <li key={item._id}> 
 
-					{ typeof item.whoLiked.find((i) => {return i===cookie.get('userId')}) === 'undefined' ? <button onClick={props.addlike.bind(null, item, true, cookie.get('userId'))}> ❤ </button> : <button onClick={props.addlike.bind(null, item, false, cookie.get('userId'))}> remove ❤ </button> } 
+		return (
+				typeof item === 'undefined' ? null : // may not need?
+				<Card className="card" key={item._id}> 
+					<Image className="image card-image" src={"http://localhost:9000/" + item.picture} /> 
+					<Card.Content>
+						<Card.Header> <h2> {item.owner} </h2> 
+							{ props.currentUserName !== item.owner ? ( props.checkUserExistsInArray(item.owner) ? <span className="followingComponent"> <i className="exceptionAgain fas fa-check-circle"></i> Following </span>: <button className="followUser" onClick={props.followButtonClicked.bind(this, item.owner)}> <i className=" exception fas fa-user-plus"></i> Follow </button>) : null} 
 
-					<button onClick={props.addComment.bind(null, item._id)}> 💬 </button> 
-
-					{ cookie.get('userId') == item.userId 
-						? <span> <button onClick={props.deletePost.bind(null, item._id)}> Delete </button> <button onClick={props.editPost.bind(null, item._id)}> ✏️ </button> </span>
-						: null 
-					}
-
-					{ props.currentUserName !== item.owner ? ( props.checkUserExistsInArray(item.owner) ? <span className="followingComponent"> <i className="exceptionAgain fas fa-check-circle"></i> Following </span>: <button className="followUser" onClick={props.followButtonClicked.bind(this, item.owner)}> <i className=" exception fas fa-user-plus"></i> Follow </button>) : null} 
-					<h1> {item.likes} # of likes </h1>
-					<h2> owner: {item.owner}</h2>
-					<img src={"http://localhost:9000/" + item.picture} /> 
-					
-					{ props.canEdit && props.currentPostId == item._id ? <EditPost post={item} edit={props.editingPost} editPost={props.editPost} /> : <h2> description: {item.description}</h2> }
+						</Card.Header>
+							{ typeof item.whoLiked.find((i) => {return i===cookie.get('userId')}) === 'undefined' 
+								? <Button  color='violet' content='❤' label={{ basic: true, color: 'violet', pointing: 'left', content: item.likes }} onClick={props.addlike.bind(null, item, true, cookie.get('userId'))} /> 
+								: <Button  color='violet' content='❤' label={{ basic: true, color: 'violet', pointing: 'left', content: item.likes }} onClick={props.addlike.bind(null, item, false, cookie.get('userId'))} /> 
+							} 
 
 
-					<CommentContainer userId={item.userId} thePost={item._id} canComment={props.canComment} currentPostId={props.currentPostId} /> 
+							{ cookie.get('userId') == item.userId 
+								? <span> <button onClick={props.deletePost.bind(null, item._id)}> Delete </button> <button onClick={props.editPost.bind(null, item._id)}> ✏️ </button> </span>
+								: null 
+							}
 
-				</li>
+						<Card.Description> 
+						
+							{ props.canEdit && props.currentPostId == item._id ? <EditPost post={item} edit={props.editingPost} editPost={props.editPost} /> : <h2> description: {item.description}</h2> }
+						</Card.Description>
+					</Card.Content>
+					<Card.Content extra>
+						<Button onClick={props.addComment.bind(null, item._id)} content='💬' basic color='black' /> 
+
+						<CommentContainer userId={item.userId} thePost={item._id} canComment={props.canComment} currentPostId={props.currentPostId} /> 
+					</Card.Content>
+				</Card>
+			)
+
 	});
 	return(
-			<ul> 
-				{posts}
-			</ul> 
+		<div className="main"> 
+			
+					{posts}
+				
+		</div>
 	);
 }
 

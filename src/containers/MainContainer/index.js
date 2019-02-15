@@ -1,9 +1,8 @@
 import React, {Component} from 'react'; 
 import PostList from '../../components/ShowAllPost';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
-import Navbar from '../../components/Navbar';
+
 import Cookies from 'universal-cookie';
+import {Form, TextArea} from 'semantic-ui-react';
 
 const axios = require("axios");
 
@@ -99,8 +98,8 @@ class MainContainer extends Component {     // this is technically post containe
         	posts: [...this.state.posts, tempObj],
 
         	myPost: { 
-					description: '', 
-					file: null
+					// description: '', 
+					// file: null
 				}
         }); 
     }
@@ -385,7 +384,7 @@ class MainContainer extends Component {     // this is technically post containe
 
 
     		// Save the entry into the database: NEED TO DO THIS
-    		console.log("State Array: ", this.state.currentUserFollowingArray);
+    		console.log("State Array: 0  ", this.state.currentUserFollowingArray);
     		this.savedDataIntoDatabase(this.state.currentUserFollowingArray);
     	}
     	else
@@ -435,14 +434,15 @@ class MainContainer extends Component {     // this is technically post containe
 		console.log('this.state', this.state);
 		return ( 
 			<div> 
-				<form onSubmit={this.onFormSubmit} ref="createPostForm" >
+
+				<Form onSubmit={this.onFormSubmit} ref="createPostForm" >
 					<input type='file' name="myImage" onChange={this.onChange}/>
-					<input type='text' name='description' onChange={this.handleInput} value={this.state.description}/>
+					<TextArea autoHeight placeholder='Tell the world!' type='text' name='description' onChange={this.handleInput} value={this.state.description}/>
 					<input type='submit' />
-				</form>
-				<p> All existing Posts </p>
+				</Form>
+
+
 				<PostList postLiked={this.state.liked} getUser={this.getCurrentUser} allPosts={this.state.posts} checkUserExistsInArray={this.checkUserExistsInArray} followButtonClicked={this.followButtonClicked} currentUserName={this.state.currentUser} editPost={this.editPost} canEdit={this.state.editPost} editingPost={this.editingPost} deletePost={this.deletePost} addlike={this.addlike} addComment={this.addComment} canComment={this.state.addComment} currentPostId={this.state.currentPostId} /> 
-				<Footer/>
 
 
 			</div>

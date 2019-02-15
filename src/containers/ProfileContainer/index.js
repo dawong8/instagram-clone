@@ -18,6 +18,9 @@ class ProfileContainer extends Component {
 				<Header/>
 					<h1> You have been visited by the Profile Container </h1>
 				<Navbar/>
+
+
+				
 				<Footer/>
 			</div>
 			)

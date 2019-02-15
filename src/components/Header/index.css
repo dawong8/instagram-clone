@@ -1,3 +1,9 @@
-div {
-	/*background: #D2B48C	;*/
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+
+
+.header {
+	text-align: center;
+	font-size: 75px;
+	font-family: 'Pacifico', cursive;
+	letter-spacing: 3px;
 }

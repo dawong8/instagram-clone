@@ -2,11 +2,11 @@ span{
 	color: #4183C4;
 }
 
-span:hover{
+/*span:hover{
 	color: #1e70bf;
 	cursor: pointer;
 }
-
+*/
 .postOwner{
 	color: #000000;
 }
@@ -26,9 +26,9 @@ span:hover{
 	border-radius: 5px;
 }
 
-.followingComponent:hover{
+/*.followingComponent:hover{
 	color: #000000;
-}
+}*/
 
 button:hover{
 	cursor: pointer;

@@ -48,7 +48,7 @@ class Facebook extends Component{
 								    fields="name,email,picture"
 								    onClick={this.componentClicked}
 								    callback={this.responseFacebook}
-								    icon="fa-facebook-square"
+								    icon="fb-enter fa-facebook-square"
 								    size="small"
 								    textButton = {this.props.buttonText} 
 								/>

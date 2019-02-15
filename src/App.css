@@ -1,15 +1,27 @@
-@import url('https://fonts.googleapis.com/css?family=Acme%7CGive+You+Glory');
+@import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great%7CPontano+Sans');
 
-*:not(.exception):not(.exceptionAgain) {
-  font-family: 'Give You Glory', cursive !important;
-/*  background: #8B4513 ;
-*/
+
+*:not(.exception):not(.exceptionAgain):not(.header):not(.fb-enter) {
+	font-family: 'Pontano Sans', sans-serif !important;
+}
+
+.main {
+
 }
 
 .exception{
 	/*background-color: white;*/
 	color: #339AF0;
+
 }
+
+
+.fb-enter{ 
+
+	color: white;
+ }
+
+
 
 .followUser{
 	background-color: #FFFFFF;
