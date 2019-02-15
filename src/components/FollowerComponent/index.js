@@ -1,5 +1,7 @@
 import React from 'react';
 import GenerateComments from '../GenerateComments';
+import './index.css';
+import { Card, Icon, Image } from 'semantic-ui-react'
 
 const FollowerComponent = (props) =>{
 
@@ -21,22 +23,24 @@ const FollowerComponent = (props) =>{
 		console.log("Commments from FOLLOWERCOMPONENT: ", comments);
 
 		return (
-			<li key={item._id}>
-				<img src={"http://localhost:9000/"+item.picture} alt="Post picture"/>
-				<h3> Description: {item.description} </h3>
-				<h3> Owner: {item.owner} </h3>
-				{ (props.getComment(item._id).length !== 0 ) ? <GenerateComments item={item} getComment={props.getComment} itemId={item._id}/> : null}
+			<Card key={item._id}>
+				<Card.Content>
+					<Image className="image card-image" src={"http://localhost:9000/"+item.picture} alt="Post picture"/>
+					<Card.Header> {item.description} </Card.Header>
+					<Card.Header> <i className="exception fas fa-user"></i> {item.owner} </Card.Header>
+					{ (props.getComment(item._id).length !== 0 ) ? <GenerateComments item={item} getComment={props.getComment} itemId={item._id}/> : null}
+				</Card.Content>
 
-			</li>
+			</Card>
 		);
 
 	});
 
 
 	return(
-		<ul>
+		<Card.Group itemsPerRow={3}>
 			{followerComments}
-		</ul>
+		</Card.Group>
 	);
 }
 

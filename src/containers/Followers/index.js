@@ -5,7 +5,6 @@ import Navbar from '../../components/Navbar';
 import FollowerComponent from '../../components/FollowerComponent';
 import Cookies from 'universal-cookie';
 
-
 class Followers extends Component{
 	constructor(){
 		super();
@@ -143,7 +142,6 @@ class Followers extends Component{
 			<div>
 				<Header/>
 				<Navbar/>
-				<h1> You have visited the Followers Container </h1>
 				<FollowerComponent followingPosts={this.state.posts} getComment={this.getComment}/>
 				<Footer/>
 			</div>
