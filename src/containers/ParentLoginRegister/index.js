@@ -302,13 +302,13 @@ class ParentLoginRegister extends Component{
 								<Register handleRegisterChange={this.handleRegisterChange} handleRegisterSubmit={this.handleRegisterSubmit} />
 								{this.state.register.errorMsg !== '' ? <ErrorMessage errorMessage={this.state.register.errorMsg}/> : null}
 								<Facebook setStateFacebook={this.setStateFacebook} buttonText={"SignUp with Facebook"}/>
-								<button onClick={this.buttonChange}>Have an account? </button>
+								<button className="special" onClick={this.buttonChange}>Have an account? </button>
 							 </span> : 
 							<span> 
 								<Login handleLoginChange={this.handleLoginChange} handleLoginSubmit={this.handleLoginSubmit}/>
 								{this.state.login.errorMsg !== '' ? <ErrorMessage errorMessage={this.state.login.errorMsg}/> : null}
 								<Facebook setStateFacebook={this.setStateFacebook} buttonText={"Login with Facebook"}/>
-								<button onClick={this.buttonChange}>New? </button> 
+								<button  className="special" onClick={this.buttonChange}>New? </button> 
 
 								</span>
 

@@ -4,7 +4,7 @@ import ErrorMessage from '../../components/ErrorMessage';
 import EditProfileComponent from '../../components/EditProfileComponent';
 import Header from '../../components/Header';
 import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+// import Footer from '../../components/Footer';
 
 class EditProfile extends Component{
 	constructor(){
@@ -139,7 +139,6 @@ class EditProfile extends Component{
 				<Navbar/>
 				<EditProfileComponent handleChange={this.handleChange} handleSubmit = {this.handleSubmit} responseName = {this.state.responseObtained.username}/>
 				{ this.state.errorMessage ?<ErrorMessage errorMessage={this.state.errorMessageString}/> : null}
-				<Footer/>
 			</div>
 		);
 	}

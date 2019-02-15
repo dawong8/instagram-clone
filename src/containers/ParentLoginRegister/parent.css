@@ -1,4 +1,8 @@
+.special {
+	border: none;
+	color: blue;
 
+}
 
 #video{
 	min-height: 100%;
