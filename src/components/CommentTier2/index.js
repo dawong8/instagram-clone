@@ -24,7 +24,7 @@ class CommentTier2 extends Component {
 
 	getComments = async () => {
  		try {
- 			const response = await fetch('http://localhost:9000/api/v1/comment/' + this.props.currentComment._id);
+ 			const response = await fetch(`${process.env.REACT_APP_API}/api/v1/comment/` + this.props.currentComment._id);
  			if (!response.ok) {
  				throw Error(response.statusText);
  			}
@@ -44,7 +44,7 @@ class CommentTier2 extends Component {
 
 	addComment = async (arg) => {
 		try {
-			const response = await fetch('http://localhost:9000/api/v1/comment', {
+			const response = await fetch(`${process.env.REACT_APP_API}/api/v1/comment`, {
 				method: 'POST', 
 				body: JSON.stringify(arg),
 				credentials: 'include',
@@ -76,7 +76,7 @@ class CommentTier2 extends Component {
 			};
 			console.log('tempParent', tempParent);
 
-			const parentResponse = await fetch('http://localhost:9000/api/v1/comment/' + this.state.parentComment._id, {
+			const parentResponse = await fetch(`${process.env.REACT_APP_API}/api/v1/comment/` + this.state.parentComment._id, {
 				method: 'PUT',
 				body: JSON.stringify(tempParent), 
 				headers: {
