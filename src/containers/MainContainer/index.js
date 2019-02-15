@@ -444,7 +444,6 @@ class MainContainer extends Component {     // this is technically post containe
 
 				<PostList postLiked={this.state.liked} getUser={this.getCurrentUser} allPosts={this.state.posts} checkUserExistsInArray={this.checkUserExistsInArray} followButtonClicked={this.followButtonClicked} currentUserName={this.state.currentUser} editPost={this.editPost} canEdit={this.state.editPost} editingPost={this.editingPost} deletePost={this.deletePost} addlike={this.addlike} addComment={this.addComment} canComment={this.state.addComment} currentPostId={this.state.currentPostId} /> 
 
-
 			</div>
 			)
 	}
