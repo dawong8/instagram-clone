@@ -1,0 +1,34 @@
+footer{
+	position: absolute;
+	background-color: black;
+	color: white;
+	height: 100px;
+	width: 100%;
+}
+
+.copyright{
+	position: relative;
+	left: 50%;
+	top:50%;
+}
+
+.github-links{
+	position: relative;
+	/*justify-content: center;
+	align-items: center;*/
+	left: 85%;
+	top: 5%;
+}
+
+.link1{
+	position: relative;
+	left: -128px;
+	top: 20px;
+}
+
+.link2{
+	position: relative;
+	display: inline-block;
+	left: -212px;
+	top: 40px;
+}
