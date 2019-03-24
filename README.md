@@ -1,4 +1,6 @@
 # Flutter (Instaclone) - Frontend
+
+### About this app
 For this app, we built an instagram clone as our MVP. The user can sign up/login to an account, or continue with Facebook. The user will then see the start page, where the user can create posts, follow other people, like posts, comment on posts, edit the user's own posts, and click on each person to go to their individual profile. The user also has the freedom to edit their own account settings, delete accounts, and view only their followed people's posts.
 
 ### Backend API
